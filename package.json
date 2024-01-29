@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@nestjs/mapped-types": "*",
     "react": "^18",
     "react-dom": "^18",
     "next": "14.1.0"
