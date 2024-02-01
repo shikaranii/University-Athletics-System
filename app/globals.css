@@ -47,3 +47,7 @@ body {
 .nav-link:hover {
   color: #2c5282;
 }
+.bg-white {
+  background-color: #ffffff;
+}
+
