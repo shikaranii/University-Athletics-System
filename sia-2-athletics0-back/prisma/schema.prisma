@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,42 +7,39 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Person {
-  id                Int        @id @default(autoincrement())
-  name              String
-  emergencyContact  Int
+model blood {
+  id     Int      @id @default(autoincrement())
+  person person[]
+}
+
+model nationality {
+  id     Int      @id @default(autoincrement())
+  person person[]
+}
+
+model person {
+  id                     Int         @id @default(autoincrement())
+  name                   String
+  emergencyContact       Int
   emergencyContactPerson String
-  nationalityId    Int        @map("NationalityId")
-  nationality      Nationality @relation(fields: [nationalityId], references: [id])
-  weight            Float
-  height            Float
-  bloodId          Int        @map("BloodId")
-  bloodType        Blood      @relation(fields: [bloodId], references: [id])
-  acadYear          Int
-  statusId         Int        @map("StatusId")
-  status           Status     @relation(fields: [statusId], references: [id])
+  NationalityId          Int
+  weight                 Float
+  height                 Float
+  BloodId                Int
+  acadYear               Int
+  StatusId               Int
+  CreatedAt              DateTime    @default(now())
+  UpdatedAt              DateTime
+  blood                  blood       @relation(fields: [BloodId], references: [id], map: "Person_BloodId_fkey")
+  nationality            nationality @relation(fields: [NationalityId], references: [id], map: "Person_NationalityId_fkey")
+  status                 status      @relation(fields: [StatusId], references: [id], map: "Person_StatusId_fkey")
 
-  // Add other fields as needed
-
-  // Timestamps for when the record is created and last updated
-  createdAt DateTime @default(now()) @map("CreatedAt")
-  updatedAt DateTime @updatedAt @map("UpdatedAt")
+  @@index([BloodId], map: "Person_BloodId_fkey")
+  @@index([NationalityId], map: "Person_NationalityId_fkey")
+  @@index([StatusId], map: "Person_StatusId_fkey")
 }
 
-model Nationality {
+model status {
   id     Int      @id @default(autoincrement())
-  // Add other nationality-related fields as needed
-  people Person[]
-}
-
-model Blood {
-  id     Int      @id @default(autoincrement())
-  // Add other blood-related fields as needed
-  people Person[]
-}
-
-model Status {
-  id     Int      @id @default(autoincrement())
-  // Add other status-related fields as needed
-  people Person[]
+  person person[]
 }
