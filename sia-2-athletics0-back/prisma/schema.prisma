@@ -49,3 +49,56 @@ model Status {
   // Add other status-related fields as needed
   people Person[]
 }
+
+model Sport {
+  id     Int      @id @default(autoincrement())
+  name   String
+  //should add student model, connect student model to sport
+}
+
+model Events {
+  id            Int            @id @default(autoincrement())
+  name          String
+  startDate     DateTime
+  endDate       DateTime
+  sportId       Int            @map("SportId")
+  externalEvent ExternalEvent? @relation(fields: [externalEventId], references: [id])
+  internalEvent InternalEvent? @relation(fields: [internalEventId], references: [id])
+
+  // Add other fields as needed
+
+  // Timestamps for when the record is created and last updated
+  createdAt     DateTime       @default(now()) @map("CreatedAt")
+  updatedAt     DateTime       @updatedAt @map("UpdatedAt")
+
+  // Foreign keys
+  externalEventId Int?          @map("ExternalEventId")
+  internalEventId Int?          @map("InternalEventId")
+}
+model ExternalEvent {
+  id    Int      @id @default(autoincrement())
+  name  String
+
+  // Add other fields as needed
+
+  // Timestamps for when the record is created and last updated
+  createdAt DateTime @default(now()) @map("CreatedAt")
+  updatedAt DateTime @updatedAt @map("UpdatedAt")
+
+  // Relationships
+  events Events[]
+}
+
+model InternalEvent {
+  id    Int      @id @default(autoincrement())
+  name  String
+
+  // Add other fields as needed
+
+  // Timestamps for when the record is created and last updated
+  createdAt DateTime @default(now()) @map("CreatedAt")
+  updatedAt DateTime @updatedAt @map("UpdatedAt")
+
+  // Relationships
+  events Events[]
+}
