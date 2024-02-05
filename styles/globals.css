@@ -51,3 +51,18 @@ body {
   background-color: #ffffff;
 }
 
+/* styles/globals.css */
+.link {
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  color: black;
+  transition: color 0.3s ease;
+}
+
+.link:hover {
+  color: #00f; /* Change to your preferred hover color */
+}
+
+.highlight {
+  border-bottom: 2px solid blue; /* Change to your preferred highlight color */
+}
