@@ -6,6 +6,99 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
+}
+
+model Person {
+  id                Int        @id @default(autoincrement())
+  name              String
+  emergencyContact  Int
+  emergencyContactPerson String
+  nationalityId    Int        @map("NationalityId")
+  nationality      Nationality @relation(fields: [nationalityId], references: [id])
+  weight            Float
+  height            Float
+  bloodId          Int        @map("BloodId")
+  bloodType        Blood      @relation(fields: [bloodId], references: [id])
+  acadYear          Int
+  statusId         Int        @map("StatusId")
+  status           Status     @relation(fields: [statusId], references: [id])
+
+  // Add other fields as needed
+
+  // Timestamps for when the record is created and last updated
+  createdAt DateTime @default(now()) @map("CreatedAt")
+  updatedAt DateTime @updatedAt @map("UpdatedAt")
+}
+
+model Nationality {
+  id     Int      @id @default(autoincrement())
+  // Add other nationality-related fields as needed
+  people Person[]
+}
+
+model Blood {
+  id     Int      @id @default(autoincrement())
+  // Add other blood-related fields as needed
+  people Person[]
+}
+
+model Status {
+  id     Int      @id @default(autoincrement())
+  // Add other status-related fields as needed
+  people Person[]
+}
+
+model Sport {
+  id     Int      @id @default(autoincrement())
+  name   String
+  //should add student model, connect student model to sport
+}
+
+model Events {
+  id            Int            @id @default(autoincrement())
+  name          String
+  startDate     DateTime
+  endDate       DateTime
+  sportId       Int            @map("SportId")
+  externalEvent ExternalEvent? @relation(fields: [externalEventId], references: [id])
+  internalEvent InternalEvent? @relation(fields: [internalEventId], references: [id])
+
+  // Add other fields as needed
+
+  // Timestamps for when the record is created and last updated
+  createdAt     DateTime       @default(now()) @map("CreatedAt")
+  updatedAt     DateTime       @updatedAt @map("UpdatedAt")
+
+  // Foreign keys
+  externalEventId Int?          @map("ExternalEventId")
+  internalEventId Int?          @map("InternalEventId")
+}
+model ExternalEvent {
+  id    Int      @id @default(autoincrement())
+  name  String
+
+  // Add other fields as needed
+
+  // Timestamps for when the record is created and last updated
+  createdAt DateTime @default(now()) @map("CreatedAt")
+  updatedAt DateTime @updatedAt @map("UpdatedAt")
+
+  // Relationships
+  events Events[]
+}
+
+model InternalEvent {
+  id    Int      @id @default(autoincrement())
+  name  String
+
+  // Add other fields as needed
+
+  // Timestamps for when the record is created and last updated
+  createdAt DateTime @default(now()) @map("CreatedAt")
+  updatedAt DateTime @updatedAt @map("UpdatedAt")
+
+  // Relationships
+  events Events[]
 }
