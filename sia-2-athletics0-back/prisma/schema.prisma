@@ -11,19 +11,20 @@ datasource db {
 }
 
 model Person {
-  id                Int        @id @default(autoincrement())
-  name              String
-  emergencyContact  Int
+  id                     Int         @id @default(autoincrement())
+  firstName              String
+  lastName               String
+  emergencyContact       Int
   emergencyContactPerson String
-  nationalityId    Int        @map("NationalityId")
-  nationality      Nationality @relation(fields: [nationalityId], references: [id])
-  weight            Float
-  height            Float
-  bloodId          Int        @map("BloodId")
-  bloodType        Blood      @relation(fields: [bloodId], references: [id])
-  acadYear          Int
-  statusId         Int        @map("StatusId")
-  status           Status     @relation(fields: [statusId], references: [id])
+  nationalityId          Int         @map("NationalityId")
+  nationality            Nationality @relation(fields: [nationalityId], references: [id])
+  weight                 Float
+  height                 Float
+  bloodId                Int         @map("BloodId")
+  bloodType              Blood       @relation(fields: [bloodId], references: [id])
+  acadYear               Int
+  statusId               Int         @map("StatusId")
+  status                 Status      @relation(fields: [statusId], references: [id])
 
   // Add other fields as needed
 
@@ -32,27 +33,37 @@ model Person {
   updatedAt DateTime @updatedAt @map("UpdatedAt")
 }
 
+model Student {
+  personId     Int     @id @map("PersonId")
+  person       Person  @relation(fields: [personId], references: [id])
+  courseId     Int     @map("CourseId")
+  course       Course  @relation(fields: [courseId], references: [id])
+
+  // Add other fields specific to the Student model
+}
 model Nationality {
   id     Int      @id @default(autoincrement())
-  // Add other nationality-related fields as needed
+  name String
   people Person[]
 }
 
 model Blood {
   id     Int      @id @default(autoincrement())
+  type String
   // Add other blood-related fields as needed
   people Person[]
 }
 
 model Status {
-  id     Int      @id @default(autoincrement())
-  // Add other status-related fields as needed
-  people Person[]
+  id       Int      @id @default(autoincrement())
+  type     String
+  isActive Boolean
+  people   Person[]
 }
 
 model Sport {
-  id     Int      @id @default(autoincrement())
-  name   String
+  id   Int    @id @default(autoincrement())
+  name String
   //should add student model, connect student model to sport
 }
 
@@ -68,16 +79,17 @@ model Events {
   // Add other fields as needed
 
   // Timestamps for when the record is created and last updated
-  createdAt     DateTime       @default(now()) @map("CreatedAt")
-  updatedAt     DateTime       @updatedAt @map("UpdatedAt")
+  createdAt DateTime @default(now()) @map("CreatedAt")
+  updatedAt DateTime @updatedAt @map("UpdatedAt")
 
   // Foreign keys
-  externalEventId Int?          @map("ExternalEventId")
-  internalEventId Int?          @map("InternalEventId")
+  externalEventId Int? @map("ExternalEventId")
+  internalEventId Int? @map("InternalEventId")
 }
+
 model ExternalEvent {
-  id    Int      @id @default(autoincrement())
-  name  String
+  id   Int    @id @default(autoincrement())
+  name String
 
   // Add other fields as needed
 
@@ -90,8 +102,8 @@ model ExternalEvent {
 }
 
 model InternalEvent {
-  id    Int      @id @default(autoincrement())
-  name  String
+  id   Int    @id @default(autoincrement())
+  name String
 
   // Add other fields as needed
 
