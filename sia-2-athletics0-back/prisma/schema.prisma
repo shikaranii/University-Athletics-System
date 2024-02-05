@@ -26,30 +26,32 @@ model Person {
   statusId               Int         @map("StatusId")
   status                 Status      @relation(fields: [statusId], references: [id])
 
-  // Add other fields as needed
-
   // Timestamps for when the record is created and last updated
   createdAt DateTime @default(now()) @map("CreatedAt")
   updatedAt DateTime @updatedAt @map("UpdatedAt")
+
+  // Add other fields as needed
+  Student Student[]
 }
 
 model Student {
-  personId     Int     @id @map("PersonId")
-  person       Person  @relation(fields: [personId], references: [id])
-  courseId     Int     @map("CourseId")
-  course       Course  @relation(fields: [courseId], references: [id])
+  id       Int    @id @default(autoincrement())
+  personId Int    @map("PersonId")
+  person   Person @relation(fields: [personId], references: [id])
+  course   String
 
   // Add other fields specific to the Student model
 }
+
 model Nationality {
   id     Int      @id @default(autoincrement())
-  name String
+  name   String
   people Person[]
 }
 
 model Blood {
   id     Int      @id @default(autoincrement())
-  type String
+  type   String
   // Add other blood-related fields as needed
   people Person[]
 }
@@ -114,6 +116,7 @@ model InternalEvent {
   // Relationships
   events Events[]
 }
+
 enum personRole {
   FACULTY
   STUDENT
