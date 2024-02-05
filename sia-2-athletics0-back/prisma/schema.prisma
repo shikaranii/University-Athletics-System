@@ -114,3 +114,7 @@ model InternalEvent {
   // Relationships
   events Events[]
 }
+enum personRole {
+  FACULTY
+  STUDENT
+}
