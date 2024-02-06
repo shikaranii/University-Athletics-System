@@ -10,27 +10,26 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+//placeholder so far hehe
 model Person {
   id                     Int         @id @default(autoincrement())
   firstName              String
   lastName               String
   emergencyContact       Int
   emergencyContactPerson String
-  nationalityId          Int         @map("NationalityId")
-  nationality            Nationality @relation(fields: [nationalityId], references: [id])
+  nationality            String
   weight                 Float
   height                 Float
   bloodId                Int         @map("BloodId")
-  bloodType              Blood       @relation(fields: [bloodId], references: [id])
+  bloodType              String      
   acadYear               Int
   statusId               Int         @map("StatusId")
   status                 Status      @relation(fields: [statusId], references: [id])
 
-  // Timestamps for when the record is created and last updated
+  // timestaps for when the record is created and last updated
   createdAt DateTime @default(now()) @map("CreatedAt")
   updatedAt DateTime @updatedAt @map("UpdatedAt")
 
-  // Add other fields as needed
   Student Student[]
 }
 
@@ -40,20 +39,6 @@ model Student {
   person   Person @relation(fields: [personId], references: [id])
   course   String
 
-  // Add other fields specific to the Student model
-}
-
-model Nationality {
-  id     Int      @id @default(autoincrement())
-  name   String
-  people Person[]
-}
-
-model Blood {
-  id     Int      @id @default(autoincrement())
-  type   String
-  // Add other blood-related fields as needed
-  people Person[]
 }
 
 model Status {
@@ -78,13 +63,12 @@ model Events {
   externalEvent ExternalEvent? @relation(fields: [externalEventId], references: [id])
   internalEvent InternalEvent? @relation(fields: [internalEventId], references: [id])
 
-  // Add other fields as needed
 
-  // Timestamps for when the record is created and last updated
+  //add description for the events
   createdAt DateTime @default(now()) @map("CreatedAt")
   updatedAt DateTime @updatedAt @map("UpdatedAt")
 
-  // Foreign keys
+  // foreign keys
   externalEventId Int? @map("ExternalEventId")
   internalEventId Int? @map("InternalEventId")
 }
@@ -93,30 +77,25 @@ model ExternalEvent {
   id   Int    @id @default(autoincrement())
   name String
 
-  // Add other fields as needed
-
-  // Timestamps for when the record is created and last updated
+  
   createdAt DateTime @default(now()) @map("CreatedAt")
   updatedAt DateTime @updatedAt @map("UpdatedAt")
 
-  // Relationships
+  // rs
   events Events[]
 }
 
 model InternalEvent {
   id   Int    @id @default(autoincrement())
   name String
-
-  // Add other fields as needed
-
-  // Timestamps for when the record is created and last updated
   createdAt DateTime @default(now()) @map("CreatedAt")
   updatedAt DateTime @updatedAt @map("UpdatedAt")
 
-  // Relationships
+  // rs
   events Events[]
 }
 
+//idk why i added this basta i did 🧍‍♀️
 enum personRole {
   FACULTY
   STUDENT
