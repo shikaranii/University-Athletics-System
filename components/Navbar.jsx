@@ -66,7 +66,7 @@ const Navbar = () => {
   <img src="/sean.jpg" alt="Sean" className="w-24 rounded-full" />
 </div>
 <div className="text-center lg:text-center mt-4 mb-4">
-  <h1 className="text-base font-bold font-poppins">Sean Elijah Chavez</h1>
+  <h1 className="text-base font-bold font-poppins">Sean Elijah V. Chavez</h1>
   <p className="text-sm text-gray-500 font-poppins">sevchavez@addu.edu.ph</p>
   <p className="text-sm text-gray-500 font-poppins">Admin Associate</p>
 </div>
