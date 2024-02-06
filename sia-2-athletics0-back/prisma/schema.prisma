@@ -13,14 +13,13 @@ datasource db {
 //placeholder so far hehe
 model Person {
   id                     Int         @id @default(autoincrement())
-  firstName              String
-  lastName               String
+  firstName              String @unique
+  lastName               String @unique
   emergencyContact       Int
   emergencyContactPerson String
   nationality            String
   weight                 Float
   height                 Float
-  bloodId                Int         @map("BloodId")
   bloodType              String      
   acadYear               Int
   statusId               Int         @map("StatusId")
@@ -30,13 +29,11 @@ model Person {
   createdAt DateTime @default(now()) @map("CreatedAt")
   updatedAt DateTime @updatedAt @map("UpdatedAt")
 
-  Student Student[]
 }
 
 model Student {
   id       Int    @id @default(autoincrement())
   personId Int    @map("PersonId")
-  person   Person @relation(fields: [personId], references: [id])
   course   String
 
 }
