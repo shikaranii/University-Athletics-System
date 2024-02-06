@@ -20,21 +20,15 @@ model Person {
   nationality            String
   weight                 Float
   height                 Float
-  bloodType              String      
+  bloodType              BloodType      
   acadYear               Int
   statusId               Int         @map("StatusId")
   status                 Status      @relation(fields: [statusId], references: [id])
+  personrole             personRole
 
   // timestaps for when the record is created and last updated
   createdAt DateTime @default(now()) @map("CreatedAt")
   updatedAt DateTime @updatedAt @map("UpdatedAt")
-
-}
-
-model Student {
-  id       Int    @id @default(autoincrement())
-  personId Int    @map("PersonId")
-  course   String
 
 }
 
@@ -48,52 +42,43 @@ model Status {
 model Sport {
   id   Int    @id @default(autoincrement())
   name String
+  sportType SportType
   //should add student model, connect student model to sport
+
+  createdAt     DateTime       @default(now()) @map("CreatedAt")
+  updatedAt     DateTime       @updatedAt @map("UpdatedAt")
 }
+
 
 model Events {
   id            Int            @id @default(autoincrement())
   name          String
   startDate     DateTime
   endDate       DateTime
+  eventType     EventType      
   sportId       Int            @map("SportId")
-  externalEvent ExternalEvent? @relation(fields: [externalEventId], references: [id])
-  internalEvent InternalEvent? @relation(fields: [internalEventId], references: [id])
+  eventDetails  String?        
 
-
-  //add description for the events
-  createdAt DateTime @default(now()) @map("CreatedAt")
-  updatedAt DateTime @updatedAt @map("UpdatedAt")
-
-  // foreign keys
-  externalEventId Int? @map("ExternalEventId")
-  internalEventId Int? @map("InternalEventId")
+  createdAt     DateTime       @default(now()) @map("CreatedAt")
+  updatedAt     DateTime       @updatedAt @map("UpdatedAt")
 }
 
-model ExternalEvent {
-  id   Int    @id @default(autoincrement())
-  name String
-
-  
-  createdAt DateTime @default(now()) @map("CreatedAt")
-  updatedAt DateTime @updatedAt @map("UpdatedAt")
-
-  // rs
-  events Events[]
+enum EventType {
+  INTERNAL
+  EXTERNAL
 }
 
-model InternalEvent {
-  id   Int    @id @default(autoincrement())
-  name String
-  createdAt DateTime @default(now()) @map("CreatedAt")
-  updatedAt DateTime @updatedAt @map("UpdatedAt")
-
-  // rs
-  events Events[]
-}
-
-//idk why i added this basta i did 🧍‍♀️
 enum personRole {
   FACULTY
   STUDENT
+}
+enum SportType {
+  MEN
+  WOMEN
+}
+enum BloodType {
+  A
+  B
+  AB 
+  O
 }
