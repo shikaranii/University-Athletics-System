@@ -63,6 +63,12 @@ model Events {
   updatedAt     DateTime       @updatedAt @map("UpdatedAt")
 }
 
+model InventoryItems {
+id              Int            @id @default(autoincrement())
+name            String         @unique
+sportId         Int            @map("SportId")
+}
+
 enum EventType {
   INTERNAL
   EXTERNAL
