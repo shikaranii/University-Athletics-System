@@ -9,7 +9,7 @@ const HeroEvent = () => {
             Events
           </h1>
           <p className="mb-2 sm:text-lg text-black font-semibold">
-            Welcome, "Your Name"
+            Welcome, "Your Name Here"
           </p>
         </div>
       </div>
