@@ -10,7 +10,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-//placeholder so far hehe
+//person is categorized into faculty and student
 model Person {
   id                     Int         @id @default(autoincrement())
   firstName              String @unique
@@ -77,6 +77,8 @@ enum EventType {
 enum personRole {
   FACULTY
   STUDENT
+  ADMIN_ASSOCIATE
+  ADMIN
 }
 enum SportCategory {
   MEN
