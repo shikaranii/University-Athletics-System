@@ -1,22 +1,21 @@
+
 import React from 'react';
 import Navbar from '../../components/Navbar'; // Import Navbar component
-import ProfileComponent from '../../components/ProfileComponent'; // Import ProfileComponent
+import 'daisyui/dist/full.css';
+import Hero from '../../components/Hero';
 
 const Dashboard = () => {
   return (
-    <div>
-      {/* Include the ProfileComponent */}
-  
-      
-      {/* Include the Navbar component */}
-      <Navbar />
+    <div className="flex">
+    <Navbar />
+    <div className="flex-1 p-8">
 
+      <Hero /> {/* Include Hero component */}
       
-      
-      {/* Other page content */}
-      {/* Add your other content here */}
-    </div>
-  );
-}
+     
+        </div>
+      </div>
 
+);
+};
 export default Dashboard;
