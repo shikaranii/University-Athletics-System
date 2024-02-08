@@ -43,7 +43,6 @@ model Sport {
   id   Int    @id @default(autoincrement())
   name String
   sportCategory SportCategory
-  sportType  SportType
   //should add student model, connect student model to sport
 
   createdAt     DateTime       @default(now()) @map("CreatedAt")
@@ -89,7 +88,4 @@ enum BloodType {
   AB 
   O
 }
-enum SportType {
-  PHYSICAL
-  ESPORTS
-}
+  
