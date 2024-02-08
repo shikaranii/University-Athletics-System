@@ -10,7 +10,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-//placeholder so far hehe
+//person is categorized into faculty and student
 model Person {
   id                     Int         @id @default(autoincrement())
   firstName              String @unique
@@ -42,7 +42,7 @@ model Status {
 model Sport {
   id   Int    @id @default(autoincrement())
   name String
-  sportType SportType
+  sportCategory SportCategory
   //should add student model, connect student model to sport
 
   createdAt     DateTime       @default(now()) @map("CreatedAt")
@@ -63,6 +63,12 @@ model Events {
   updatedAt     DateTime       @updatedAt @map("UpdatedAt")
 }
 
+model InventoryItems {
+id              Int            @id @default(autoincrement())
+name            String         @unique
+sportId         Int            @map("SportId")
+}
+
 enum EventType {
   INTERNAL
   EXTERNAL
@@ -71,8 +77,10 @@ enum EventType {
 enum personRole {
   FACULTY
   STUDENT
+  ADMIN_ASSOCIATE
+  ADMIN
 }
-enum SportType {
+enum SportCategory {
   MEN
   WOMEN
 }
@@ -82,3 +90,4 @@ enum BloodType {
   AB 
   O
 }
+  
