@@ -45,25 +45,25 @@ const Navbar = () => {
             <li className="font-poppins">
               <a
                 href="/Dashboard"
-                className="btn btn-wide btn-gray-100 text-gray-800 w-full text-left"
+                className="btn btn-primary  w-full text-left bg-blue-900 text-white"
               >
                 <IoHome className="mr-2" />
                 <span className="text-lg">Dashboard</span>
               </a>
             </li>
-            <li className="font-poppins">
+            <li className="font-poppin">
               <a
                 href="/profile"
-                className="btn btn-wide btn-gray-100 text-gray-800 w-full text-left"
+                className="btn btn-primary  w-full text-left bg-blue-900 text-white"
               >
                 <IoPersonCircle className="mr-2" />
-                <span className="text-lg">Profile Management</span>
+                <span className="text-lg ">Profile Management</span>
               </a>
             </li>
             <li className="font-poppins">
               <a
                 href="/events"
-                className="btn btn-wide btn-gray-100 text-gray-800 w-full text-left"
+                className="btn btn-primary  w-full text-left bg-blue-900 text-white"
               >
                 <BsCalendar2EventFill className="mr-2" />
                 <span className="text-lg">Events</span>
@@ -72,7 +72,7 @@ const Navbar = () => {
             <li className="font-poppins">
               <a
                 href="/inventory"
-                className="btn btn-wide btn-gray-100 text-gray-800 w-full text-left"
+                className="btn btn-primary  w-full text-left bg-blue-900 text-white"
               >
                 <MdInventory className="mr-2" />
                 <span className="text-lg">Inventory</span>

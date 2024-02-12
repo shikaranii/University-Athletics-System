@@ -28,7 +28,7 @@ const HeroProfile = () => {
             <div>
               <div className="mb-4">
                 <h3 className="text-lg font-semibold">Student Athlete</h3>
-                <button className="btn btn-primary">Edit Profile</button>
+                <a href="/profile/studentprofile" className="btn btn-primary">Go to Student Profile</a>
               </div>
               <div>
                 <h3 className="text-lg font-semibold">Coaches</h3>

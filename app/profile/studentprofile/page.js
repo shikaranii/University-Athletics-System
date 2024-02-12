@@ -1,15 +1,15 @@
 // pages/profile/page.js
 import Link from "next/link";
-import Navbar from "../../components/Navbar"; // Import Navbar component
+import Navbar from "../../../components/Navbar"; // Import Navbar component
 import "daisyui/dist/full.css";
-import HeroProfile from '../../components/HeroProfile';
+import HeroStudentProfile from '../../../components/HeroStudentProfile';
 
 const ProfilePage = () => {
   return (
     <div className="flex">
       <Navbar />
       <div className="flex-grow">
-        <HeroProfile />
+        <HeroStudentProfile />
       </div> 
     </div>
 
