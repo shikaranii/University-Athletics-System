@@ -12,24 +12,38 @@ datasource db {
 
 //person is categorized into faculty and student
 model Person {
-  id                     Int         @id @default(autoincrement())
-  firstName              String @unique
-  lastName               String @unique
+  id                     Int        @id @default(autoincrement())
+  firstName              String     @unique
+  lastName               String     @unique
   emergencyContact       Int
   emergencyContactPerson String
   nationality            String
   weight                 Float
   height                 Float
-  bloodType              BloodType      
+  bloodType              String
   acadYear               Int
-  statusId               Int         @map("StatusId")
-  status                 Status      @relation(fields: [statusId], references: [id])
+  statusId               Int        @map("StatusId")
+  status                 Status     @relation(fields: [statusId], references: [id])
   personrole             personRole
 
   // timestaps for when the record is created and last updated
   createdAt DateTime @default(now()) @map("CreatedAt")
   updatedAt DateTime @updatedAt @map("UpdatedAt")
 
+  Student Student[]
+}
+
+model Student {
+  id       Int    @id @default(autoincrement())
+  courseId Int    @map("CourseId")
+  year     Int
+  person   Person @relation(fields: [personId], references: [id])
+  personId Int    @map("PersonId")
+  course   String
+  personrole             personRole
+  // 
+  createdAt DateTime @default(now()) @map("CreatedAt")
+  updatedAt DateTime @updatedAt @map("UpdatedAt")
 }
 
 model Status {
@@ -40,33 +54,32 @@ model Status {
 }
 
 model Sport {
-  id   Int    @id @default(autoincrement())
-  name String
+  id            Int           @id @default(autoincrement())
+  name          String
   sportCategory SportCategory
   //should add student model, connect student model to sport
 
-  createdAt     DateTime       @default(now()) @map("CreatedAt")
-  updatedAt     DateTime       @updatedAt @map("UpdatedAt")
+  createdAt DateTime @default(now()) @map("CreatedAt")
+  updatedAt DateTime @updatedAt @map("UpdatedAt")
 }
 
-
 model Events {
-  id            Int            @id @default(autoincrement())
-  name          String
-  startDate     DateTime
-  endDate       DateTime
-  eventType     EventType      
-  sportId       Int            @map("SportId")
-  eventDetails  String?        
+  id           Int       @id @default(autoincrement())
+  name         String
+  startDate    DateTime
+  endDate      DateTime
+  eventType    EventType
+  sportId      Int       @map("SportId")
+  eventDetails String?
 
-  createdAt     DateTime       @default(now()) @map("CreatedAt")
-  updatedAt     DateTime       @updatedAt @map("UpdatedAt")
+  createdAt DateTime @default(now()) @map("CreatedAt")
+  updatedAt DateTime @updatedAt @map("UpdatedAt")
 }
 
 model InventoryItems {
-id              Int            @id @default(autoincrement())
-name            String         @unique
-sportId         Int            @map("SportId")
+  id      Int    @id @default(autoincrement())
+  name    String @unique
+  sportId Int    @map("SportId")
 }
 
 enum EventType {
@@ -80,14 +93,8 @@ enum personRole {
   ADMIN_ASSOCIATE
   ADMIN
 }
+
 enum SportCategory {
   MEN
   WOMEN
 }
-enum BloodType {
-  A
-  B
-  AB 
-  O
-}
-  
