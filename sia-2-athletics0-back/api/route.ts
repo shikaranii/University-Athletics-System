@@ -12,10 +12,8 @@ const createEventSchema = z.object({
 export async function POST(request: NextRequest) {
     const body = await request.json();
     const validation = createEventSchema.safeParse(body)
-    if (!validation.success)
-        return NextResponse.json(validation.error.errors, {status: 400})
 
-    const newEvent = await prisma.Events.create({
+    const newEvent = await prisma.events.create({
         data: {name: body.name, eventDetails: body.eventDetails}
     })
 

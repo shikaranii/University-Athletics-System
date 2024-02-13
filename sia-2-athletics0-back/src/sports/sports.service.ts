@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { CreateSportDto } from './dto/create-sport.dto';
+import { CreateSportDTO } from './dto/create-sport.dto';
 import { UpdateSportDto } from './dto/update-sport.dto';
 
 @Injectable()
 export class SportsService {
-  create(createSportDto: CreateSportDto) {
+  create(createSportDto: CreateSportDTO) {
     return 'This action adds a new sport';
   }
 
