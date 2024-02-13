@@ -13,7 +13,7 @@ const HeroStudentProfile = () => {
 
       <section className="bg-gray-100 py-12">
         <div className="container mx-auto">
-          <a href="/profile/studentprofile" className="btn btn-primary absolute top-10 md:top-10 right-10 md:right-10 mt-4 mr-4 bg-blue-900 text-white">
+          <a href="/profile/studentprofile/studentadd" className="btn btn-primary absolute top-10 md:top-10 right-10 md:right-10 mt-4 mr-4 bg-blue-900 text-white">
             Add Student Athlete
           </a>
           <div className="overflow-x-auto">
