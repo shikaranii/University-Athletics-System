@@ -14,20 +14,23 @@ const StudentAddForm = () => {
   <div className="container mx-auto">
     <div className="flex space-x-4">
       <div className="flex flex-col space-y-4">
-        <input type="text" placeholder="Name" className="input input-bordered w-full max-w-xs" />
+        <input type="text" placeholder="First Name" className="input input-bordered w-full max-w-xs" />
+        <input type="text" placeholder="Last Name" className="input input-bordered w-full max-w-xs" />
         <input type="email" placeholder="Email Address" className="input input-bordered w-full max-w-xs" />
         <input type="text" placeholder="Sport" className="input input-bordered w-full max-w-xs" />
         <input type="text" placeholder="Year and Course" className="input input-bordered w-full max-w-xs" />
-        <input type="text" placeholder="Contact" className="input input-bordered w-full max-w-xs" />
+        
       </div>
       <div className="flex flex-col space-y-4">
+        <input type="text" placeholder="Contact" className="input input-bordered w-full max-w-xs" />
         <input type="text" placeholder="Birthdate" className="input input-bordered w-full max-w-xs" />
         <input type="email" placeholder="Nationality" className="input input-bordered w-full max-w-xs" />
         <input type="text" placeholder="Academic Year" className="input input-bordered w-full max-w-xs" />
         <input type="text" placeholder="Weight in KG*" className="input input-bordered w-full max-w-xs" />
-        <input type="text" placeholder="Height in CM*" className="input input-bordered w-full max-w-xs" />
+        
       </div>
       <div className="flex flex-col space-y-4">
+      <input type="text" placeholder="Height in CM*" className="input input-bordered w-full max-w-xs" />
         <input type="text" placeholder="Blood Type" className="input input-bordered w-full max-w-xs" />
         <input type="file" placeholder="Medical Certificate" className="input input-bordered w-full max-w-xs" />
       </div>
