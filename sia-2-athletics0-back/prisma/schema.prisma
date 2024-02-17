@@ -11,7 +11,7 @@ datasource db {
 }
 
 //person is categorized into faculty and student
-model Person {
+model person {
   id                     Int        @id @default(autoincrement())
   firstName              String     @unique
   lastName               String     @unique
@@ -37,10 +37,10 @@ model Student {
   id       Int    @id @default(autoincrement())
   courseId Int    @map("CourseId")
   year     Int
-  person   Person @relation(fields: [personId], references: [id])
+  person   person @relation(fields: [personId], references: [id])
   personId Int    @map("PersonId")
   course   String
-  personrole             personRole
+  personrole personRole
   // 
   createdAt DateTime @default(now()) @map("CreatedAt")
   updatedAt DateTime @updatedAt @map("UpdatedAt")
@@ -50,7 +50,7 @@ model Status {
   id       Int      @id @default(autoincrement())
   type     String
   isActive Boolean
-  people   Person[]
+  people   person[]
 }
 
 model Sport {

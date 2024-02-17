@@ -8,7 +8,7 @@ export class SportsController {
   constructor(private readonly sportsService: SportsService) {}
 
   @Post()
-  create(@Body() createSportDto: CreateSportDto) {
+  create(@Body() createSportDto: CreateSportDTO) {
     return this.sportsService.create(createSportDto);
   }
 
