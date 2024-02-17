@@ -9,12 +9,15 @@ export default async function createStudent(
   res: NextApiResponse
 ) {
   try {
-    const { name, age, ...otherFields } = req.body; // Extract form data
+    const {  firstName, lastName, course, 
+        year, emergencyContact, emergencyContactPerson,
+        nationality, weight, height, bloodType, acadYear,  } = req.body; // Extract form data
     const newStudent = await prisma.student.create({
       data: {
-        name,
-        age,
-        // Other fields...
+        
+        firstName, lastName, course, 
+        year, emergencyContact, emergencyContactPerson,
+        nationality, weight, height, bloodType, acadYear, 
       },
     });
     res.status(201).json(newStudent);
