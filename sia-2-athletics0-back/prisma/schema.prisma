@@ -11,10 +11,10 @@ datasource db {
 }
 
 //person is categorized into faculty and student
-model person {
-  id                     Int        @id @default(autoincrement())
-  firstName              String     @unique
-  lastName               String     @unique
+model User {
+  id                     Int    @id @default(autoincrement())
+  firstName              String @unique
+  lastName               String @unique
   emergencyContact       Int
   emergencyContactPerson String
   nationality            String
@@ -22,35 +22,60 @@ model person {
   height                 Float
   bloodType              String
   acadYear               Int
-  statusId               Int        @map("StatusId")
-  status                 Status     @relation(fields: [statusId], references: [id])
-  personrole             personRole
+  statusId               Int    @map("StatusId")
+  status                 Status @relation(fields: [statusId], references: [id])
 
   // timestaps for when the record is created and last updated
   createdAt DateTime @default(now()) @map("CreatedAt")
   updatedAt DateTime @updatedAt @map("UpdatedAt")
-
-  Student Student[]
 }
 
 model Student {
-  id       Int    @id @default(autoincrement())
-  courseId Int    @map("CourseId")
-  year     Int
-  person   person @relation(fields: [personId], references: [id])
-  personId Int    @map("PersonId")
-  course   String
-  personrole personRole
+  id                     Int      @id @default(autoincrement())
+  firstName              String   @unique
+  lastName               String   @unique
+  course                 String
+  courseId               Int      @map("CourseId")
+  year                   Int
+  emergencyContact       Int
+  emergencyContactPerson String
+  nationality            String
+  weight                 Float
+  height                 Float
+  bloodType              String
+  acadYear               Int
+  statusId               Int      @map("StatusId")
+  status                 Status   @relation(fields: [statusId], references: [id])
   // 
-  createdAt DateTime @default(now()) @map("CreatedAt")
-  updatedAt DateTime @updatedAt @map("UpdatedAt")
+  createdAt              DateTime @default(now()) @map("CreatedAt")
+  updatedAt              DateTime @updatedAt @map("UpdatedAt")
+}
+
+model Faculty {
+  id                     Int      @id @default(autoincrement())
+  courseId               Int      @map("CourseId")
+  year                   Int
+  emergencyContact       Int
+  emergencyContactPerson String
+  nationality            String
+  weight                 Float
+  height                 Float
+  bloodType              String
+  acadYear               Int
+  statusId               Int      @map("StatusId")
+  status                 Status   @relation(fields: [statusId], references: [id])
+  // 
+  createdAt              DateTime @default(now()) @map("CreatedAt")
+  updatedAt              DateTime @updatedAt @map("UpdatedAt")
 }
 
 model Status {
-  id       Int      @id @default(autoincrement())
+  id       Int       @id @default(autoincrement())
   type     String
   isActive Boolean
-  people   person[]
+  people   User[]
+  Student  Student[]
+  Faculty  Faculty[]
 }
 
 model Sport {
@@ -85,13 +110,6 @@ model InventoryItems {
 enum EventType {
   INTERNAL
   EXTERNAL
-}
-
-enum personRole {
-  FACULTY
-  STUDENT
-  ADMIN_ASSOCIATE
-  ADMIN
 }
 
 enum SportCategory {
