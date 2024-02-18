@@ -1,24 +1,14 @@
-import { Controller, Post, Body, HttpException } from '@nestjs/common';
-import { PrismaService } from 'src/prisma.service';
+import { Controller, Post, Get, Body } from '@nestjs/common';
+import { PrismaService } from 'src/prisma.service'; // Update the path if needed
 
-@Controller('students')
+@Controller('Student')
 export class StudentsController {
   constructor(private readonly prismaService: PrismaService) {}
 
   @Post()
   async createStudent(@Body() body: any) {
     try {
-      const { firstName, lastName, course, 
-            year, emergencyContact, emergencyContactPerson,
-            nationality, weight, height, bloodType, acadYear, 
-            } = body;
-      const newStudent = await this.prismaService.Student.create({
-        data: {
-            firstName, lastName, course, 
-            year, emergencyContact, emergencyContactPerson,
-            nationality, weight, height, bloodType, acadYear, 
-        }
-      });
+      const newStudent = await this.prismaService.createStudent(body);
       return newStudent;
     } catch (error) {
       console.error(error);
@@ -29,12 +19,10 @@ export class StudentsController {
   @Get()
   async getAllStudents() {
     try {
-      return await this.prismaService.Student.findMany();
+      return await this.prismaService.getAllStudents();
     } catch (error) {
       console.error(error);
       throw new Error('Internal server error');
     }
   }
-
-  // Similarly, define methods for updating and deleting students
 }
