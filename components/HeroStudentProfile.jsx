@@ -1,4 +1,7 @@
+'use client'
 import React from 'react';
+
+const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5555';
 
 const HeroStudentProfile = () => {
   return (

@@ -10,7 +10,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-//person is categorized into faculty and student
+//
 model User {
   id                     Int    @id @default(autoincrement())
   firstName              String @unique
@@ -24,16 +24,20 @@ model Student {
   id                     Int      @id @default(autoincrement())
   firstName              String   @unique
   lastName               String   @unique
+  email                  String @unique
+  sport String
+  contactNumber          Int @unique
   course                 String
   courseId               Int      @map("CourseId")
   year                   Int
-  emergencyContact       Int
-  emergencyContactPerson String
+  birthdate              String
   nationality            String
+  acadYear               Int
   weight                 Float
   height                 Float
+  emergencyContact       Int
+  emergencyContactPerson String
   bloodType              String
-  acadYear               Int
   statusId               Int      @map("StatusId")
   status                 Status   @relation(fields: [statusId], references: [id])
   // 
