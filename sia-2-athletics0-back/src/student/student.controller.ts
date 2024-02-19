@@ -1,28 +1,34 @@
-import { Controller, Post, Get, Body } from '@nestjs/common';
-import { PrismaService } from 'src/prisma.service'; // Update the path if needed
+import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { StudentService } from './student.service';
+import { CreateStudentDto } from './dto/create-student.dto';
+import { UpdateStudentDto } from './dto/update-student.dto';
 
-@Controller('Student')
-export class StudentsController {
-  constructor(private readonly prismaService: PrismaService) {}
+@Controller('student')
+export class StudentController {
+  constructor(private readonly studentService: StudentService) {}
 
   @Post()
-  async createStudent(@Body() body: any) {
-    try {
-      const newStudent = await this.prismaService.createStudent(body);
-      return newStudent;
-    } catch (error) {
-      console.error(error);
-      throw new Error('Internal server error');
-    }
+  create(@Body() createStudentDto: CreateStudentDto) {
+    return this.studentService.create(createStudentDto);
   }
 
   @Get()
-  async getAllStudents() {
-    try {
-      return await this.prismaService.getAllStudents();
-    } catch (error) {
-      console.error(error);
-      throw new Error('Internal server error');
-    }
+  findAll() {
+    return this.studentService.findAll();
+  }
+
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.studentService.findOne(+id);
+  }
+
+  @Patch(':id')
+  update(@Param('id') id: string, @Body() updateStudentDto: UpdateStudentDto) {
+    return this.studentService.update(+id, updateStudentDto);
+  }
+
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.studentService.remove(+id);
   }
 }

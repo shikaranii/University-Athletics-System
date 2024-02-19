@@ -24,11 +24,9 @@ model Student {
   id                     Int      @id @default(autoincrement())
   firstName              String   @unique
   lastName               String   @unique
-  email                  String @unique
-  sport String
-  contactNumber          Int @unique
+  contact                Int      @unique
+  sport                  String?
   course                 String
-  courseId               Int      @map("CourseId")
   year                   Int
   birthdate              String
   nationality            String
@@ -38,16 +36,13 @@ model Student {
   emergencyContact       Int
   emergencyContactPerson String
   bloodType              String
-  statusId               Int      @map("StatusId")
-  status                 Status   @relation(fields: [statusId], references: [id])
-  // 
   createdAt              DateTime @default(now()) @map("CreatedAt")
   updatedAt              DateTime @updatedAt @map("UpdatedAt")
 }
 
 model Faculty {
   id                     Int      @id @default(autoincrement())
-  courseId               Int      @map("CourseId")
+  name                   String
   year                   Int
   emergencyContact       Int
   emergencyContactPerson String
@@ -67,7 +62,6 @@ model Status {
   id       Int       @id @default(autoincrement())
   type     String
   isActive Boolean
-  Student  Student[]
   Faculty  Faculty[]
 }
 
@@ -109,3 +103,20 @@ enum SportCategory {
   MEN
   WOMEN
 }
+
+// firstName: '',
+//  lastName: '',
+//          email: '',
+//          sport: '',
+///  /          contact: '',
+ //         course: '', 
+ //         year: '',
+ //         birthdate: '',
+//          nationality: '',
+ //         academicYear: '',
+//          weight: '',
+//         height: '',
+//          emergencyContact: '',
+ //         emergencyContactPerson: '',
+ //         bloodType: '',
+ //         medicalCertificate: null
