@@ -74,11 +74,11 @@ const HeroStudentProfile = () => {
               <tbody>
                 {students.map((student, index) => (
                   <tr key={index}>
-                    <td className="text-lg font-bold text-black">{student.sport}</td>
-                    <td className="text-lg font-bold text-black">{student.firstName}</td>
-                    <td className="text-lg font-bold text-black">{student.lastName}</td>
-                    <td className="text-lg font-bold text-black">{student.contact}</td>
-                    <td className="text-lg font-bold text-black">{student.course}</td>
+                    <td className="text-lg font-medium text-black">{student.sport}</td>
+                    <td className="text-lg font-medium text-black">{student.firstName}</td>
+                    <td className="text-lg font-medium text-black">{student.lastName}</td>
+                    <td className="text-lg font-medium text-black">{student.contact}</td>
+                    <td className="text-lg font-medium text-black">{student.course}</td>
                     <td>
                       <button className="text-blue-500 hover:underline">View</button>
                     </td>
