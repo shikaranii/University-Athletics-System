@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 
 const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3000';
@@ -7,23 +7,42 @@ const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3000
 const HeroStudentProfile = () => {
   const [students, setStudents] = useState([]);
 
-  useEffect(() => {
-    // Fetch student data from the backend API
-    const fetchStudents = async () => {
-      try {
-        const response = await fetch(`${backendUrl}/student`);
-        if (!response.ok) {
-          throw new Error('Failed to fetch students');
-        }
-        const data = await response.json();
-        setStudents(data); // Update state with fetched students
-      } catch (error) {
-        console.error('Error fetching students:', error);
-      }
-    };
+// useEffect(() => {
+//   // Fetch student data from the backend API
+//   const fetchStudents = async () => {
+//     try {
+//       const response = await fetch(`${backendUrl}/student`);
+//       if (!response.ok) {
+//         throw new Error('Failed to fetch students');
+//       }
+//       const data = await response.json();
+//       setStudents(data); // Update state with fetched students
+//     } catch (error) {
+//       console.error('Error fetching students:', error);
+//     }
+//   };
 
-    fetchStudents(); // Call the fetchStudents function when component mounts
-  }, []); // Empty dependency array to ensure effect runs only once
+//   fetchStudents(); // Call the fetchStudents function when component mounts
+// }, []); // Empty dependency array to ensure effect runs only once
+
+  const fetchStudents = useCallback(async () => {
+    try{
+      const response = await fetch(`${backendUrl}/student`);
+      if(!response.ok) {
+        throw new Error('Failed to fetch students');
+      }
+      const data = await response.json();
+      setStudents(data); // Update state with fetched students
+    }catch (error) {
+      console.error('Error fetching students:', error);
+      console.log(data);
+    }
+
+  }, [backendUrl]);
+
+  useEffect(() => {
+    fetchStudents();
+  },[fetchStudents]);
 
   return (
     <>
@@ -56,7 +75,7 @@ const HeroStudentProfile = () => {
                 {students.map((student, index) => (
                   <tr key={index}>
                     <td className="text-lg font-bold text-black">{student.sport}</td>
-                    <td className="text-lg font-bold text-black">{student.firstName} {student.lastName}</td>
+                    <td className="text-lg font-bold text-black">{student.firstName}</td>
                     <td className="text-lg font-bold text-black">{student.lastName}</td>
                     <td className="text-lg font-bold text-black">{student.contact}</td>
                     <td className="text-lg font-bold text-black">{student.course}</td>
