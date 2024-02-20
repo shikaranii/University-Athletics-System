@@ -40,7 +40,14 @@ export class StudentService {
   }
 
   //delete 
-  remove(id: number) {
-    return `This action removes a #${id} student`;
+  async remove(id: number) {
+    const existingStudent = await this.prisma.prismaClient.student.findUnique({where: {id},
+    });
+
+    if (!existingStudent) {
+      throw new NotFoundException('Student with ID ${id} not found')
+    }
+
+    return this.prisma.prismaClient.student.delete({where: {id},});
   }
 }

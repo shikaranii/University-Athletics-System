@@ -2,26 +2,26 @@
 import React, { useCallback, useState } from 'react';
 import { Student } from '../src/types folder/types';
 
-const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5555';
+const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3000';
 
 const StudentAddForm = () => {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
-    email: '',
-    sport: '',
-    contact: '',
-    course: '',
-    year: 0,
-    birthdate: '',
-    nationality: '',
-    academicYear: '',
-    weight: 0,
-    height: 0,
-    bloodType: '',
-    emergencyContact: 0,
-    emergencyContactPerson: '',
-    medicalCertificate: null
+    // email: '',
+    // sport: '',
+    // contact: '',
+    // course: '',
+    // year: 0,
+    // birthdate: '',
+    // nationality: '',
+    // academicYear: '',
+    // weight: 0,
+    // height: 0,
+    // bloodType: '',
+    // emergencyContact: 0,
+    // emergencyContactPerson: '',
+    // medicalCertificate: null
   });
 
   const handleChange = (e) => {
@@ -44,7 +44,7 @@ const StudentAddForm = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch(`${backendUrl}/students`, {
+      const response = await fetch(`${backendUrl}/student`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -72,6 +72,7 @@ const StudentAddForm = () => {
           <form onSubmit={handleSubmit}>
             {/* Input fields */}
             <input type="text" name="firstName" value={formData.firstName} onChange={handleChange} placeholder="First Name" className="input input-bordered w-full max-w-xs" />
+            <input type="text" name="lastName" value={formData.lastName} onChange={handleChange} placeholder="Last Name" className="input input-bordered w-full max-w-xs" />
             {/* Add other input fields */}
             <input type="file" name="medicalCertificate" onChange={handleFileChange} placeholder="Medical Certificate" className="input input-bordered w-full max-w-xs" />
             <button type="submit" className="btn btn-primary">Submit</button>

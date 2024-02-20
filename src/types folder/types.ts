@@ -1,13 +1,13 @@
 // types.ts     
 
 export interface Student {
-    // id: number;
+    id: number;
     firstName: string;
     lastName: string;
     contact: number;
     course: string;
     // courseId: number;
-    // year: number;
+    year: number;
     // emergencyContact: number;
     // emergencyContactPerson: string;
     // nationality: string;
