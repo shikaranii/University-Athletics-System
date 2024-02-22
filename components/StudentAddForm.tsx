@@ -22,10 +22,9 @@ const StudentAddForm = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prevState => ({
-      ...prevState,
-      [name]: value
-    }));
+    // Convert the value to an integer before updating the state
+    const updatedValue = name === 'contact' ? parseInt(value, 10) : value;
+    setFormData({ ...formData, [name]: updatedValue });
   };
 
   // const handleFileChange = (e) => {
