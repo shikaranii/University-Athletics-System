@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,98 +7,89 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-//person is categorized into faculty and student
-model User {
-  id                     Int    @id @default(autoincrement())
-  firstName              String @unique
-  lastName               String @unique
-  // timestaps for when the record is created and last updated
-  createdAt DateTime @default(now()) @map("CreatedAt")
-  updatedAt DateTime @updatedAt @map("UpdatedAt")
-}
-
-model Student {
-  id                     Int      @id @default(autoincrement())
-  firstName              String   @unique
-  lastName               String   @unique
-  course                 String
-  courseId               Int      @map("CourseId")
-  year                   Int
-  emergencyContact       Int
-  emergencyContactPerson String
-  nationality            String
-  weight                 Float
-  height                 Float
-  bloodType              String
-  acadYear               Int
-  statusId               Int      @map("StatusId")
-  status                 Status   @relation(fields: [statusId], references: [id])
-  // 
-  createdAt              DateTime @default(now()) @map("CreatedAt")
-  updatedAt              DateTime @updatedAt @map("UpdatedAt")
-}
-
-model Faculty {
-  id                     Int      @id @default(autoincrement())
-  courseId               Int      @map("CourseId")
-  year                   Int
-  emergencyContact       Int
-  emergencyContactPerson String
-  nationality            String
-  weight                 Float
-  height                 Float
-  bloodType              String
-  acadYear               Int
-  statusId               Int      @map("StatusId")
-  status                 Status   @relation(fields: [statusId], references: [id])
-  // 
-  createdAt              DateTime @default(now()) @map("CreatedAt")
-  updatedAt              DateTime @updatedAt @map("UpdatedAt")
-}
-
-model Status {
-  id       Int       @id @default(autoincrement())
-  type     String
-  isActive Boolean
-  Student  Student[]
-  Faculty  Faculty[]
-}
-
-model Sport {
-  id            Int           @id @default(autoincrement())
-  name          String
-  sportCategory SportCategory
-  //should add student model, connect student model to sport
-
-  createdAt DateTime @default(now()) @map("CreatedAt")
-  updatedAt DateTime @updatedAt @map("UpdatedAt")
-}
-
-model Events {
-  id           Int       @id @default(autoincrement())
+model events {
+  id           Int              @id @default(autoincrement())
   name         String
   startDate    DateTime
   endDate      DateTime
-  eventType    EventType
-  sportId      Int       @map("SportId")
+  SportId      Int
+  CreatedAt    DateTime         @default(now())
+  UpdatedAt    DateTime
   eventDetails String?
-
-  createdAt DateTime @default(now()) @map("CreatedAt")
-  updatedAt DateTime @updatedAt @map("UpdatedAt")
+  eventType    events_eventType
 }
 
-model InventoryItems {
+model faculty {
+  id                     Int      @id @default(autoincrement())
+  name                   String
+  year                   Int
+  emergencyContact       Int
+  emergencyContactPerson String
+  nationality            String
+  weight                 Float
+  height                 Float
+  bloodType              String
+  StatusId               Int
+  CreatedAt              DateTime @default(now())
+  UpdatedAt              DateTime
+  status                 status   @relation(fields: [StatusId], references: [id], map: "Faculty_StatusId_fkey")
+
+  @@index([StatusId], map: "Faculty_StatusId_fkey")
+}
+
+model inventoryitems {
   id      Int    @id @default(autoincrement())
-  name    String @unique
-  sportId Int    @map("SportId")
+  name    String @unique(map: "InventoryItems_name_key")
+  SportId Int
 }
 
-enum EventType {
-  INTERNAL
-  EXTERNAL
+model sport {
+  id            Int                 @id @default(autoincrement())
+  name          String
+  CreatedAt     DateTime            @default(now())
+  UpdatedAt     DateTime
+  sportCategory sport_sportCategory
 }
 
-enum SportCategory {
+model status {
+  id       Int       @id @default(autoincrement())
+  isActive Boolean
+  type     String
+  faculty  faculty[]
+}
+
+model student {
+  id                     Int      @id @default(autoincrement())
+  firstName              String   @unique
+  lastName               String   @unique
+  sport                  String?
+  course                 String
+  year                   Int
+  birthdate              String
+  nationality            String
+  weight                 Float
+  height                 Float
+  bloodType              String
+  CreatedAt              DateTime @default(now())
+  UpdatedAt              DateTime @default(now()) @db.Timestamp(0)
+  contact                Int      @unique
+  medicalCertificate     String?
+}
+
+model user {
+  id        Int      @id @default(autoincrement())
+  firstName String   @unique(map: "User_firstName_key")
+  lastName  String   @unique(map: "User_lastName_key")
+  CreatedAt DateTime @default(now())
+  UpdatedAt DateTime
+}
+
+enum sport_sportCategory {
   MEN
   WOMEN
+}
+
+enum events_eventType {
+  INTERNAL
+  EXTERNAL
 }
