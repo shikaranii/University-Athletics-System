@@ -59,7 +59,7 @@ model status {
 }
 
 model student {
-  id                     Int      @unique @default(autoincrement())
+  id                     Int      @id @default(autoincrement())
   firstName              String   @unique
   lastName               String   @unique
   sport                  String?
