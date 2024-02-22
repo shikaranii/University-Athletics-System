@@ -8,20 +8,16 @@ const StudentAddForm = () => {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
-    // email: '',
-    // sport: '',
-    // contact: '',
-    // course: '',
-    // year: 0,
-    // birthdate: '',
-    // nationality: '',
-    // academicYear: '',
-    // weight: 0,
-    // height: 0,
-    // bloodType: '',
-    // emergencyContact: 0,
-    // emergencyContactPerson: '',
-    // medicalCertificate: null
+    sport: '',
+    contact: 0,
+    course: '',
+    year: 0,
+    birthdate: '',
+    nationality: '',
+    weight: 0,
+    height: 0,
+    bloodType: '',
+    medicalCertificate: '',
   });
 
   const handleChange = (e) => {
@@ -32,13 +28,13 @@ const StudentAddForm = () => {
     }));
   };
 
-  const handleFileChange = (e) => {
-    const { name, files } = e.target;
-    setFormData(prevState => ({
-      ...prevState,
-      [name]: files[0]
-    }));
-  };
+  // const handleFileChange = (e) => {
+  //   const { name, files } = e.target;
+  //   setFormData(prevState => ({
+  //     ...prevState,
+  //     [name]: files[0]
+  //   }));
+  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -73,8 +69,15 @@ const StudentAddForm = () => {
             {/* Input fields */}
             <input type="text" name="firstName" value={formData.firstName} onChange={handleChange} placeholder="First Name" className="input input-bordered w-full max-w-xs" />
             <input type="text" name="lastName" value={formData.lastName} onChange={handleChange} placeholder="Last Name" className="input input-bordered w-full max-w-xs" />
+            {/* <input type="text" name="email" value={formData.email} onChange={handleChange} placeholder="Email" className="input input-bordered w-full max-w-xs" /> */}
+            <input type="text" name="sport" value={formData.sport} onChange={handleChange} placeholder="Sport" className="input input-bordered w-full max-w-xs" />
+            <input type="text" name="contact" value={formData.contact} onChange={handleChange} placeholder="Contact" className="input input-bordered w-full max-w-xs" />
+            <input type="text" name="course" value={formData.course} onChange={handleChange} placeholder="Course" className="input input-bordered w-full max-w-xs" />
+            <input type="text" name="year" value={formData.year} onChange={handleChange} placeholder="Year" className="input input-bordered w-full max-w-xs" />
+            {/* <input type="number" name="year" value={formData.academicYear} onChange={handleChange} placeholder="AcadYear" className="input input-bordered w-full max-w-xs" /> */}
+            
             {/* Add other input fields */}
-            <input type="file" name="medicalCertificate" onChange={handleFileChange} placeholder="Medical Certificate" className="input input-bordered w-full max-w-xs" />
+            <input type="file" name="medicalCertificate" onChange={handleChange} placeholder="Medical Certificate" className="input input-bordered w-full max-w-xs" />
             <button type="submit" className="btn btn-primary">Submit</button>
           </form>
         </div>

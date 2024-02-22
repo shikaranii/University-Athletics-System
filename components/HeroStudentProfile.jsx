@@ -44,7 +44,7 @@ const fetchStudents = useCallback(async () => {
 
   return (
     <>
-      {/* Add Student Athlete Section */}
+  
       <section className="bg-gray-100 py-8">
         <div className="container mx-auto absolute">
           <h2 className="text-3xl font-semibold text-gray-800 mb-4">Student-Athletes</h2>
