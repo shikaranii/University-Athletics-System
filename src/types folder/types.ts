@@ -11,8 +11,9 @@ export interface Student {
     // emergencyContact: number;
     // emergencyContactPerson: string;
     // nationality: string;
-    // weight: number;
-    // height: number;
+    weight: number;
+    height: number;
+    birthDate: number;
     // bloodType: string;
     // acadYear: number;
     // statusId: number;

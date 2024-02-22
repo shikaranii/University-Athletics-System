@@ -21,13 +21,25 @@ const StudentAddForm = () => {
   });
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prevState => ({
-      ...prevState,
-      [name]: value
-    }));
-  };
+  const { name, value } = e.target;
 
+  // Convert 'contact' and 'year' values to integers
+  const updatedValue = (name === 'contact' || name === 'year') ? parseInt(value, 10) : value;
+
+  // Convert 'weight' and 'height' values to floats
+  const processedValue = (name === 'weight' || name === 'height') ? parseFloat(value) : updatedValue;
+
+  // Convert date to string if the name is 'birthdate' and value is a Date instance
+  const finalValue = (name === 'birthdate' && value instanceof Date) ? value.toISOString() : processedValue;
+
+  setFormData(prevState => ({
+    ...prevState,
+    [name]: finalValue
+  }));
+};
+
+  
+  
   // const handleFileChange = (e) => {
   //   const { name, files } = e.target;
   //   setFormData(prevState => ({
@@ -75,6 +87,9 @@ const StudentAddForm = () => {
             <input type="number" name="contact" value={formData.contact} onChange={handleChange} placeholder="Contact" className="input input-bordered w-full max-w-xs" />
             <input type="text" name="course" value={formData.course} onChange={handleChange} placeholder="Course" className="input input-bordered w-full max-w-xs" />
             <input type="number" name="year" value={formData.year} onChange={handleChange} placeholder="Year" className="input input-bordered w-full max-w-xs" />
+            <input type= "date" name="birthdate" value={formData.birthdate} onChange={handleChange} placeholder="birthdate" className="input input-bordered w-full max-w-xs" />
+            <input type="text" name="weight" value={formData.weight} onChange={handleChange} placeholder="Weight in KG" className="input input-bordered w-full max-w-xs" />
+            <input type="text" name="height" value={formData.height} onChange={handleChange} placeholder="Height in CM" className="input input-bordered w-full max-w-xs" />
             {/* <input type="number" name="year" value={formData.academicYear} onChange={handleChange} placeholder="AcadYear" className="input input-bordered w-full max-w-xs" /> */}
             
             {/* Add other input fields */}

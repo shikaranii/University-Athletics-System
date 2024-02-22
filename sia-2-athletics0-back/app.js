@@ -3,7 +3,7 @@ const personController = require('./controllers/personController');
 
 const app = express();
 app.use(express.json());
-
+app=.
 // Include the Person routes
 app.use('/api', personController);
 
