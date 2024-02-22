@@ -47,14 +47,15 @@ const StudentAddForm = () => {
         },
         body: JSON.stringify(formData)
       });
+      
 
       if (response.ok) {
         // Student added successfully, you can do something here like showing a success message
         console.log('Student added successfully');
-      } else {
+      } /*else {
         // Handle error response from the server
         console.error('Failed to add student');
-      }
+      }*/
     } catch (error) {
       console.error('Error occurred while adding student', error);
     }
@@ -71,9 +72,9 @@ const StudentAddForm = () => {
             <input type="text" name="lastName" value={formData.lastName} onChange={handleChange} placeholder="Last Name" className="input input-bordered w-full max-w-xs" />
             {/* <input type="text" name="email" value={formData.email} onChange={handleChange} placeholder="Email" className="input input-bordered w-full max-w-xs" /> */}
             <input type="text" name="sport" value={formData.sport} onChange={handleChange} placeholder="Sport" className="input input-bordered w-full max-w-xs" />
-            <input type="text" name="contact" value={formData.contact} onChange={handleChange} placeholder="Contact" className="input input-bordered w-full max-w-xs" />
+            <input type="number" name="contact" value={formData.contact} onChange={handleChange} placeholder="Contact" className="input input-bordered w-full max-w-xs" />
             <input type="text" name="course" value={formData.course} onChange={handleChange} placeholder="Course" className="input input-bordered w-full max-w-xs" />
-            <input type="text" name="year" value={formData.year} onChange={handleChange} placeholder="Year" className="input input-bordered w-full max-w-xs" />
+            <input type="number" name="year" value={formData.year} onChange={handleChange} placeholder="Year" className="input input-bordered w-full max-w-xs" />
             {/* <input type="number" name="year" value={formData.academicYear} onChange={handleChange} placeholder="AcadYear" className="input input-bordered w-full max-w-xs" /> */}
             
             {/* Add other input fields */}

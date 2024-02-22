@@ -2,7 +2,7 @@ export class CreateStudentDto {
     firstName: string;   
     lastName:  string;   
     sport:     string;
-    contact: number; 
+    contact: number;
     course: string; 
     year: number; 
     birthdate: string;

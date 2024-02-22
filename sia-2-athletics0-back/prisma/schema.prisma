@@ -72,7 +72,7 @@ model student {
   bloodType              String
   CreatedAt              DateTime @default(now())
   UpdatedAt              DateTime @default(now()) @db.Timestamp(0)
-  contact                Int      @unique
+  contact                Int     
   medicalCertificate     String?
 }
 
