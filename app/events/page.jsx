@@ -1,6 +1,6 @@
 // pages/events/page.js
 // Assuming you have a Navigation component
-import Link from 'next/link';
+
 import 'daisyui/dist/full.css';
 import Navbar from "../../components/Navbar";
 import HeroEvent from '../../components/HeroEvent';
