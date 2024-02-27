@@ -1,18 +1,17 @@
 import Link from "next/link";
 import Navbar from "../../../components/Navbar"; // Import Navbar component
 import "daisyui/dist/full.css";
-import eventAddForm from "../../../components/eventAddForm";
-// Capitalized component name
+import EventAddForm from "../../../components/eventAddForm"; // Correct import with uppercase E
 
-const AddEvent = () => { // Capitalized component name
+const AddEvent = () => {
   return (
     <div className="flex">
       <Navbar />
       <div className="flex-grow">
-       <eventAddForm /> {/* Capitalized component name */}
+       <EventAddForm /> {/* Correct usage with uppercase E */}
       </div> 
     </div>
   )
 }
 
-export default AddEvent; // Capitalized component name
+export default AddEvent;
