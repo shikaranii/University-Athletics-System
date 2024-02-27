@@ -11,7 +11,7 @@ export class CreateStudentDto {
     height: number; 
     emergencyContact: number; 
     emergencyContactPerson: string;
-    medicalCertificate: string | null; 
+    medicalCertificate: string| null; 
     bloodType: string;
 }
 //mga need na data based sa model

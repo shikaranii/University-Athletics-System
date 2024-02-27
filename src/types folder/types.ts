@@ -45,3 +45,9 @@ export interface Student {
     // Define fields for SportCategory if needed
   }
   
+  export interface Events {
+    id: number;
+    name: string;
+    startDate: Date;
+    endDate: Date;
+  }
