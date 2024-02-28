@@ -21,10 +21,10 @@ export default async function handler(req, res) {
         // Example: const students = await fetchStudentsFromDatabase();
   
         // For demonstration purposes, let's assume we have some sample data
-        const students = [
-          { id: 1, firstName: 'John', lastName: 'Doe' },
-          { id: 2, firstName: 'Jane', lastName: 'Smith' }
-        ];
+        // const students = [
+        //   { id: 1, firstName: 'John', lastName: 'Doe' },
+        //   { id: 2, firstName: 'Jane', lastName: 'Smith' }
+        // ];
   
         // Send the fetched data as the response
         res.status(200).json(students);

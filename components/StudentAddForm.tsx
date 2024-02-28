@@ -22,30 +22,21 @@ const StudentAddForm = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-  
-    // Check if the value is empty or non-numeric
-    if (value.trim() === '' || isNaN(Number(value))) {
-      // Handle empty or non-numeric values appropriately (e.g., set it to null)
-      setFormData(prevState => ({
-        ...prevState,
-        [name]: null // Or any other default value you prefer
-      }));
-    } else {
-      // Convert 'contact' and 'year' values to integers
-      const updatedValue = (name === 'contact' || name === 'year') ? parseInt(value, 10) : value;
-    
-      // Convert 'weight' and 'height' values to floats
-      const processedValue = (name === 'weight' || name === 'height') ? parseFloat(value) : updatedValue;
-    
-      // Convert date to string if the name is 'birthdate' and value is a Date instance
-      const finalValue = (name === 'birthdate' && value instanceof Date) ? value.toISOString() : processedValue;
-    
-      setFormData(prevState => ({
-        ...prevState,
-        [name]: finalValue
-      }));
-    }
-  };
+
+  // Convert 'contact' and 'year' values to integers
+  const updatedValue = (name === 'contact' || name === 'year') ? parseInt(value, 10) : value;
+
+  // Convert 'weight' and 'height' values to floats
+  const processedValue = (name === 'weight' || name === 'height') ? parseFloat(value) : updatedValue;
+
+  // Convert date to string if the name is 'birthdate' and value is a Date instance
+  const finalValue = (name === 'birthdate' && value instanceof Date) ? value.toISOString() : processedValue;
+
+  setFormData(prevState => ({
+    ...prevState,
+    [name]: finalValue
+  }));
+};
   
   // const handleFileChange = (e) => {
   //   const { name, files } = e.target;
@@ -59,22 +50,17 @@ const StudentAddForm = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch(`${backendUrl}/student`, {
+      const response = await fetch(`${backendUrl}/Student`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(formData)
       });
-      
-
       if (response.ok) {
-        // Student added successfully, you can do something here like showing a success message
+       
         console.log('Student added successfully');
-      } /*else {
-        // Handle error response from the server
-        console.error('Failed to add student');
-      }*/
+      } 
     } catch (error) {
       console.error('Error occurred while adding student', error);
     }
