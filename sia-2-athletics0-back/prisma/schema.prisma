@@ -49,6 +49,8 @@ model sport {
   CreatedAt     DateTime            @default(now())
   UpdatedAt     DateTime
   sportCategory sport_sportCategory
+
+  student     student[]
 }
 
 model status {
@@ -62,7 +64,6 @@ model student {
   id                     Int      @id @default(autoincrement())
   firstName              String   @unique
   lastName               String   @unique
-  sport                  String?
   course                 String
   year                   Int
   birthdate              String
@@ -74,6 +75,9 @@ model student {
   UpdatedAt              DateTime @default(now()) @db.Timestamp(0)
   contact                Int     
   medicalCertificate     String?
+  sport          sport?   @relation(fields: [sportId], references: [id])
+  sportId Int?
+
 }
 
 model user {

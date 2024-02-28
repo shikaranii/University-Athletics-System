@@ -1,5 +1,5 @@
 'use client'
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import { Student } from '../src/types folder/types';
 
 const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3000';
@@ -18,6 +18,7 @@ const StudentAddForm = () => {
     height: 0,
     bloodType: '',
     medicalCertificate: '',
+    selectedSport: '',
   });
 
   const handleChange = (e) => {
@@ -46,6 +47,24 @@ const StudentAddForm = () => {
   //   }));
   // };
 
+  // WILL EDIT THIS TO ADD SPORT SELECTION
+  // useEffect(() => {
+  //   // Fetch list of sports from backend API
+  //   const fetchSports = async () => {
+  //     try {
+  //       const response = await fetch('backend_url/sports'); // Replace with your API endpoint
+  //       if (!response.ok) {
+  //         throw new Error('Failed to fetch sports');
+  //       }
+  //       const data = await response.json();
+  //       setSports(data);
+  //     } catch (error) {
+  //       console.error('Error fetching sports:', error);
+  //     }
+  //   };
+
+  //   fetchSports();
+  // }, []);
   const handleSubmit = async (e) => {
     e.preventDefault();
 
