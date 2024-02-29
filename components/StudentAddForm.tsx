@@ -47,24 +47,28 @@ const StudentAddForm = () => {
   //   }));
   // };
 
-  // WILL EDIT THIS TO ADD SPORT SELECTION
-  // useEffect(() => {
-  //   // Fetch list of sports from backend API
-  //   const fetchSports = async () => {
-  //     try {
-  //       const response = await fetch('backend_url/sports'); // Replace with your API endpoint
-  //       if (!response.ok) {
-  //         throw new Error('Failed to fetch sports');
-  //       }
-  //       const data = await response.json();
-  //       setSports(data);
-  //     } catch (error) {
-  //       console.error('Error fetching sports:', error);
-  //     }
-  //   };
+  //WILL EDIT THIS TO ADD SPORT SELECTION
+  useEffect(() => {
+    // Fetch list of sports from backend API
+    const fetchSports = async () => {
+      try {
+        const response = await fetch(`${backendUrl}/Sport`); // Replace with your API endpoint
+        if (!response.ok) {
+          throw new Error('Failed to fetch sports');
+        }
+        const data = await response.json();
+        setFormData(prevState => ({
+          ...prevState,
+          sports: data, // Assuming the response contains an array of sports
+        }));
+      } catch (error) {
+        console.error('Error fetching sports:', error);
+      }
+    };
 
-  //   fetchSports();
-  // }, []);
+    fetchSports();
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -104,7 +108,25 @@ const StudentAddForm = () => {
             <input type="number" name="weight" value={formData.weight} onChange={handleChange} placeholder="Weight in KG" className="input input-bordered w-full max-w-xs" />
             <input type="number" name="height" value={formData.height} onChange={handleChange} placeholder="Height in CM" className="input input-bordered w-full max-w-xs" />
             {/* <input type="number" name="year" value={formData.academicYear} onChange={handleChange} placeholder="AcadYear" className="input input-bordered w-full max-w-xs" /> */}
-            
+            {/* Dropdown for selecting a sport */}
+            {/* <div className="mt-4">
+              <label htmlFor="sport" className="block text-sm font-medium text-gray-700">Sport</label>
+              <select
+                id="sport"
+                name="sport"
+                value={formData.sport}
+                onChange={handleChange}
+                className="select select-bordered w-full max-w-xs"
+              >
+                <option value="">Select Sport</option>
+                {/* Replace 'sports' with your list of sports */}
+                {/* {sport.map((sport) => (
+                  <option key={sport.id} value={sport.name}>
+                    {sport.name}
+                  </option>
+                ))}
+              </select>
+            </div> */} 
             {/* Add other input fields */}
             <input type="file" name="medicalCertificate" onChange={handleChange} placeholder="Medical Certificate" className="input input-bordered w-full max-w-xs" />
             <button type="submit" className="btn btn-primary">Submit</button>

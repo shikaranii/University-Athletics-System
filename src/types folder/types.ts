@@ -31,14 +31,16 @@ export interface Student {
   // }
   
   // Define the Sport type
-  // export interface Sport {
-  //   id: number;
-  //   name: string;
+  export interface Sport {
+   id: number;
+   name: string;
   //   sportCategory: SportCategory;
   //   students: Student[]; // One-to-many relationship with Student
   //   createdAt: Date;
   //   updatedAt: Date;
-  // }
+  }
+
+  export type SportList = Sport[];
   
   // Define the SportCategory type if it exists
   export interface SportCategory {
