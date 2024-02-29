@@ -100,8 +100,9 @@ const StudentAddForm = () => {
             <input type="text" name="course" value={formData.course} onChange={handleChange} placeholder="Course" className="input input-bordered w-full max-w-xs" />
             <input type="number" name="year" value={formData.year} onChange={handleChange} placeholder="Year" className="input input-bordered w-full max-w-xs" />
             <input type= "date" name="birthdate" value={formData.birthdate} onChange={handleChange} placeholder="birthdate" className="input input-bordered w-full max-w-xs" />
-            <input type="text" name="weight" value={formData.weight} onChange={handleChange} placeholder="Weight in KG" className="input input-bordered w-full max-w-xs" />
-            <input type="text" name="height" value={formData.height} onChange={handleChange} placeholder="Height in CM" className="input input-bordered w-full max-w-xs" />
+            <input type="text" name="nationality" value={formData.nationality} onChange={handleChange} placeholder="Nationality" className="input input-bordered w-full max-w-xs" />
+            <input type="number" name="weight" value={formData.weight} onChange={handleChange} placeholder="Weight in KG" className="input input-bordered w-full max-w-xs" />
+            <input type="number" name="height" value={formData.height} onChange={handleChange} placeholder="Height in CM" className="input input-bordered w-full max-w-xs" />
             {/* <input type="number" name="year" value={formData.academicYear} onChange={handleChange} placeholder="AcadYear" className="input input-bordered w-full max-w-xs" /> */}
             
             {/* Add other input fields */}
