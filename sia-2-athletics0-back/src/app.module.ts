@@ -7,12 +7,13 @@ import { EventsModule } from './events/events.module';
 // import { StudentModule } from './student/student.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { StudentModule } from './student/student.module';
+import { SportsModule } from './sports/sports.module';
 
 
 @Module({
   // imports: [ SportsModule, EventsModule, StudentModule],
 
-  imports: [ PrismaModule, StudentModule, EventsModule],
+  imports: [ PrismaModule, StudentModule, EventsModule, SportsModule],
   controllers: [AppController]
   ,
   providers: [AppService],
