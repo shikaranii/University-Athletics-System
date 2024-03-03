@@ -1,7 +1,7 @@
 'use client'
 import React, { useCallback, useState, useEffect } from 'react';
 import { Student } from '../src/types folder/types';
-
+import { Sport } from '../src/types folder/types';
 const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3000';
 
 const StudentAddForm = () => {
@@ -18,8 +18,9 @@ const StudentAddForm = () => {
     height: 0,
     bloodType: '',
     medicalCertificate: '',
-    selectedSport: '',
   });
+
+  const [sports, setSports] = useState([]); // Initialize sports state
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -52,14 +53,14 @@ const StudentAddForm = () => {
     // Fetch list of sports from backend API
     const fetchSports = async () => {
       try {
-        const response = await fetch(`${backendUrl}/Sport`); // Replace with your API endpoint
+        const response = await fetch(`${backendUrl}/Sport`);
         if (!response.ok) {
-          throw new Error('Failed to fetch sports');
+          throw new Error(`Failed to fetch sports: ${response.status} ${response.statusText}`);
         }
         const data = await response.json();
         setFormData(prevState => ({
           ...prevState,
-          sports: data, // Assuming the response contains an array of sports
+          sports: data,
         }));
       } catch (error) {
         console.error('Error fetching sports:', error);
@@ -96,39 +97,90 @@ const StudentAddForm = () => {
           <h2 className="text-3xl font-semibold text-gray-800 mb-4">Student-Athletes Add Profile</h2>
           <form onSubmit={handleSubmit}>
             {/* Input fields */}
-            <input type="text" name="firstName" value={formData.firstName} onChange={handleChange} placeholder="First Name" className="input input-bordered w-full max-w-xs" />
-            <input type="text" name="lastName" value={formData.lastName} onChange={handleChange} placeholder="Last Name" className="input input-bordered w-full max-w-xs" />
+            <input type="text" 
+            name="firstName" 
+            value={formData.firstName} 
+            onChange={handleChange} 
+            placeholder="First Name" 
+            className="input input-bordered w-full max-w-xs" />
+
+            <input type="text" 
+            name="lastName" 
+            value={formData.lastName} 
+            onChange={handleChange} 
+            placeholder="Last Name" 
+            className="input input-bordered w-full max-w-xs" />
+            
             {/* <input type="text" name="email" value={formData.email} onChange={handleChange} placeholder="Email" className="input input-bordered w-full max-w-xs" /> */}
-            <input type="text" name="sport" value={formData.sport} onChange={handleChange} placeholder="Sport" className="input input-bordered w-full max-w-xs" />
-            <input type="number" name="contact" value={formData.contact} onChange={handleChange} placeholder="Contact" className="input input-bordered w-full max-w-xs" />
-            <input type="text" name="course" value={formData.course} onChange={handleChange} placeholder="Course" className="input input-bordered w-full max-w-xs" />
-            <input type="number" name="year" value={formData.year} onChange={handleChange} placeholder="Year" className="input input-bordered w-full max-w-xs" />
-            <input type= "date" name="birthdate" value={formData.birthdate} onChange={handleChange} placeholder="birthdate" className="input input-bordered w-full max-w-xs" />
-            <input type="text" name="nationality" value={formData.nationality} onChange={handleChange} placeholder="Nationality" className="input input-bordered w-full max-w-xs" />
-            <input type="number" name="weight" value={formData.weight} onChange={handleChange} placeholder="Weight in KG" className="input input-bordered w-full max-w-xs" />
-            <input type="number" name="height" value={formData.height} onChange={handleChange} placeholder="Height in CM" className="input input-bordered w-full max-w-xs" />
-            {/* <input type="number" name="year" value={formData.academicYear} onChange={handleChange} placeholder="AcadYear" className="input input-bordered w-full max-w-xs" /> */}
-            {/* Dropdown for selecting a sport */}
-            {/* <div className="mt-4">
-              <label htmlFor="sport" className="block text-sm font-medium text-gray-700">Sport</label>
-              <select
-                id="sport"
-                name="sport"
-                value={formData.sport}
-                onChange={handleChange}
-                className="select select-bordered w-full max-w-xs"
-              >
-                <option value="">Select Sport</option>
-                {/* Replace 'sports' with your list of sports */}
-                {/* {sport.map((sport) => (
-                  <option key={sport.id} value={sport.name}>
-                    {sport.name}
-                  </option>
-                ))}
-              </select>
-            </div> */} 
+            
+            <select
+            name="sport" // Changed to select element
+            value={formData.sport}
+            onChange={handleChange}
+            className="input input-bordered w-full max-w-xs">
+            <option value="">Select Sport</option>
+            {sports.map((sport) => (
+              <option key={sport.id} value={sport.name}>
+                {sport.name}
+              </option>
+            ))}
+           </select>
+
+            <input type="number" 
+            name="contact" 
+            value={formData.contact} 
+            onChange={handleChange} 
+            placeholder="Contact" 
+            className="input input-bordered w-full max-w-xs" />
+
+            <input type="text" 
+            name="course" 
+            value={formData.course} 
+            onChange={handleChange} 
+            placeholder="Course" 
+            className="input input-bordered w-full max-w-xs" />
+            <input type="number" 
+            name="year" 
+            value={formData.year} 
+            onChange={handleChange} 
+            placeholder="Year" 
+            className="input input-bordered w-full max-w-xs" />
+
+            <input type="date" 
+            name="birthdate" 
+            value={formData.birthdate} 
+            onChange={handleChange} 
+            placeholder="birthdate" 
+            className="input input-bordered w-full max-w-xs" />
+
+            <input type="text" 
+            name="nationality" 
+            value={formData.nationality}
+            onChange={handleChange} 
+            placeholder="Nationality" 
+            className="input input-bordered w-full max-w-xs" />
+
+            <input type="number" 
+            name="weight" 
+            value={formData.weight} 
+            onChange={handleChange} 
+            placeholder="Weight in KG" 
+            className="input input-bordered w-full max-w-xs" />
+
+            <input type="number" 
+            name="height" 
+            value={formData.height} 
+            onChange={handleChange} 
+            placeholder="Height in CM" 
+            className="input input-bordered w-full max-w-xs" />
             {/* Add other input fields */}
-            <input type="file" name="medicalCertificate" onChange={handleChange} placeholder="Medical Certificate" className="input input-bordered w-full max-w-xs" />
+            <input type="file" 
+            name="medicalCertificate" 
+            onChange={handleChange} 
+            placeholder="Medical Certificate" 
+            className="input input-bordered w-full max-w-xs" />
+            
+
             <button type="submit" className="btn btn-primary">Submit</button>
           </form>
         </div>

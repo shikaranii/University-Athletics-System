@@ -1,7 +1,11 @@
 export class CreateStudentDto {
     firstName: string;   
-    lastName:  string;   
-    sport:     string;
+    lastName: string;   
+    sport: {
+        connect: {
+            id: number; // Assuming you're connecting by ID
+        };
+    };
     contact: number;
     course: string; 
     year: number; 
@@ -13,6 +17,5 @@ export class CreateStudentDto {
     emergencyContactPerson: string;
     medicalCertificate: string | null; 
     bloodType: string;
+    // Add other required properties...
 }
-//mga need na data based sa model
-// name:string; etc

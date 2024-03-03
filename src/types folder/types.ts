@@ -34,8 +34,7 @@ export interface Student {
   export interface Sport {
    id: number;
    name: string;
-  //   sportCategory: SportCategory;
-  //   students: Student[]; // One-to-many relationship with Student
+   students: Student[]; // One-to-many relationship with Student
   //   createdAt: Date;
   //   updatedAt: Date;
   }
