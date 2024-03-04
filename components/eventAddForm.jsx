@@ -6,6 +6,12 @@ import { Student } from '../src/types folder/types';
 const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3000';
 
 const EventAddForm = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+  });
+
+  const [sports, setSports] = useState({});
+  
   return (
 <>
 <section className="bg-gray-100 py-8">

@@ -18,8 +18,8 @@ export interface Student {
     // acadYear: number;
     // statusId: number;
     // status: Status;
-    sport: string; // Optional as it's a one-to-one relationship
-    // sportId?: number; // Optional as it's a foreign key referencing Sport
+    Sports: string; // Optional as it's a one-to-one relationship
+    sportId?: number; // Optional as it's a foreign key referencing Sport
     // createdAt: Date;
     // updatedAt: Date;
   }
@@ -31,7 +31,7 @@ export interface Student {
   // }
   
   // Define the Sport type
-  export interface Sport {
+  export interface Sports {
    id: number;
    name: string;
    students: Student[]; // One-to-many relationship with Student
@@ -39,12 +39,9 @@ export interface Student {
   //   updatedAt: Date;
   }
 
-  export type SportList = Sport[];
+  export type SportList = Sports[];
   
   // Define the SportCategory type if it exists
-  export interface SportCategory {
-    // Define fields for SportCategory if needed
-  }
   
   export interface Events {
     id: number;

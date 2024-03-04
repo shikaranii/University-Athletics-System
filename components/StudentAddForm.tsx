@@ -53,7 +53,7 @@ const StudentAddForm = () => {
     // Fetch list of sports from backend API
     const fetchSports = async () => {
       try {
-        const response = await fetch(`${backendUrl}/Sport`);
+        const response = await fetch(`${backendUrl}/Sports`);
         if (!response.ok) {
           throw new Error(`Failed to fetch sports: ${response.status} ${response.statusText}`);
         }

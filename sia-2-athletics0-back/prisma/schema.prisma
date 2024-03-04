@@ -43,12 +43,11 @@ model inventoryitems {
   SportId Int
 }
 
-model sport {
+model sports {
   id            Int                 @id @default(autoincrement())
   name          String
   CreatedAt     DateTime            @default(now())
   UpdatedAt     DateTime
-  sportCategory sport_sportCategory
   student       student[]
 }
 
@@ -75,7 +74,7 @@ model student {
   contact            Int
   medicalCertificate String?
   sportId            Int?
-  sport              sport?   @relation(fields: [sportId], references: [id])
+  sport              sports?   @relation(fields: [sportId], references: [id])
 
   @@index([sportId], map: "student_sportId_fkey")
 }
@@ -88,10 +87,6 @@ model user {
   UpdatedAt DateTime
 }
 
-enum sport_sportCategory {
-  MEN
-  WOMEN
-}
 
 enum events_eventType {
   INTERNAL

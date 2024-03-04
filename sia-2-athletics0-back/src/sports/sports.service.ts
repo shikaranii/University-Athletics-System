@@ -12,11 +12,11 @@ export class SportsService {
   }
 
   async findAll() {
-    return this.prisma.prismaClient.sport.findMany();
+    return this.prisma.prismaClient.sports.findMany();
   }
 
   async findOne(id: number) {
-    const sport = this.prisma.prismaClient.sport.findUnique({ where: {id },
+    const sport = this.prisma.prismaClient.sports.findUnique({ where: {id },
     });
 
     if (!sport) {
