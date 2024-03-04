@@ -1,7 +1,7 @@
 'use client'
 import React, { useCallback, useState, useEffect } from 'react';
 import { Student } from '../src/types folder/types';
-import { Sport } from '../src/types folder/types';
+import { Sports } from '../src/types folder/types';
 const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3000';
 
 const StudentAddForm = () => {

@@ -49,6 +49,7 @@ model sports {
   CreatedAt     DateTime            @default(now())
   UpdatedAt     DateTime
   student       student[]
+  sportCat      SportCategory
 }
 
 model status {
@@ -91,4 +92,13 @@ model user {
 enum events_eventType {
   INTERNAL
   EXTERNAL
+}
+
+enum SportCategory {
+ DoTA 
+ Valorant
+ SwimmingMen
+ SwimmingWomen
+ BasketballMen
+ BasketballWomen
 }

@@ -10,8 +10,8 @@ const EventAddForm = () => {
     name: '',
   });
 
-  const [sports, setSports] = useState({});
-  
+  const [sports, setSports] = useState({}); // Initialize sports state
+
   return (
 <>
 <section className="bg-gray-100 py-8">
