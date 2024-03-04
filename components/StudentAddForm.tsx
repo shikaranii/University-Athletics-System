@@ -1,7 +1,7 @@
 'use client'
 import React, { useCallback, useState, useEffect } from 'react';
 import { Student } from '../src/types folder/types';
-import { Sports } from '../src/types folder/types';
+import { SportCategory } from '../src/types folder/types';
 const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3000';
 
 const StudentAddForm = () => {
@@ -50,18 +50,14 @@ const StudentAddForm = () => {
 
   //WILL EDIT THIS TO ADD SPORT SELECTION
   useEffect(() => {
-    // Fetch list of sports from backend API
     const fetchSports = async () => {
       try {
-        const response = await fetch(`${backendUrl}/Sports`);
+        const response = await fetch(`${backendUrl}/SportCategory`);
         if (!response.ok) {
           throw new Error(`Failed to fetch sports: ${response.status} ${response.statusText}`);
         }
         const data = await response.json();
-        setFormData(prevState => ({
-          ...prevState,
-          sports: data,
-        }));
+        setSports(data);
       } catch (error) {
         console.error('Error fetching sports:', error);
       }
@@ -139,6 +135,7 @@ const StudentAddForm = () => {
             onChange={handleChange} 
             placeholder="Course" 
             className="input input-bordered w-full max-w-xs" />
+            
             <input type="number" 
             name="year" 
             value={formData.year} 
@@ -174,6 +171,7 @@ const StudentAddForm = () => {
             placeholder="Height in CM" 
             className="input input-bordered w-full max-w-xs" />
             {/* Add other input fields */}
+            
             <input type="file" 
             name="medicalCertificate" 
             onChange={handleChange} 

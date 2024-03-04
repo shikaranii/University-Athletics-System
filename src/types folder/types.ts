@@ -31,11 +31,21 @@ export interface Student {
   // }
   
   // Define the Sport type
+  
+  export enum SportCategory {
+    DoTA = 'DoTA',
+    Valorant = 'Valorant',
+    SwimmingMen = 'Swimming Men',
+    SwimmingWomen = 'Swimming Women',
+    BasketballMen = 'Basketball Men',
+    BasketballWomen = 'Basketball Women',
+  }
   export interface Sports {
    id: number;
    name: string;
    students: Student[]; // One-to-many relationship with Student
-  //   createdAt: Date;
+   category: SportCategory;
+   //   createdAt: Date;
   //   updatedAt: Date;
   }
 
