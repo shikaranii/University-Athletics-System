@@ -32,7 +32,7 @@ const HeroProfile = () => {
               </div>
               <div>
                 <h3 className="text-lg font-semibold">Coaches</h3>
-                <button className="btn btn-primary">Edit Profile</button>
+                <a href="/profile/coachprofile" className="btn btn-primary">Go to Coach Profile</a>
               </div>
             </div>
           </div>
