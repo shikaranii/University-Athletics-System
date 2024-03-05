@@ -8,7 +8,7 @@ const StudentAddForm = () => {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
-    sport: '',
+    sport: { id: ''}, 
     contact: 0,
     course: '',
     year: 0,
@@ -19,26 +19,42 @@ const StudentAddForm = () => {
     bloodType: '',
     medicalCertificate: '',
   });
-
-  const [sports, setSports] = useState([]); // Initialize sports state
+//iuseState ang sportCategory 
+  const [sports, setSports] = useState({
+    DoTA: '',
+    Valorant: '',
+    SwimmingMen: '',
+    SwimmingWomen: '',
+    BasketballMen: '',
+    BasketballWomen: '',
+  }); // Initialize sports state
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
-  // Convert 'contact' and 'year' values to integers
-  const updatedValue = (name === 'contact' || name === 'year') ? parseInt(value, 10) : value;
-
-  // Convert 'weight' and 'height' values to floats
-  const processedValue = (name === 'weight' || name === 'height') ? parseFloat(value) : updatedValue;
-
-  // Convert date to string if the name is 'birthdate' and value is a Date instance
-  const finalValue = (name === 'birthdate' && value instanceof Date) ? value.toISOString() : processedValue;
-
-  setFormData(prevState => ({
-    ...prevState,
-    [name]: finalValue
-  }));
-};
+  
+    // If the name is 'contact' or 'year', convert value to integer
+    const updatedValue = (name === 'contact' || name === 'year') ? parseInt(value, 10) : value;
+  
+    // If the name is 'weight' or 'height', convert value to float
+    const processedValue = (name === 'weight' || name === 'height') ? parseFloat(value) : updatedValue;
+  
+    // Convert date to string if the name is 'birthdate' and value is a Date instance
+    const finalValue = (name === 'birthdate' && value instanceof Date) ? value.toISOString() : processedValue;
+  
+    // Update state based on the field name
+    if (name === 'sport') {
+      setFormData(prevState => ({
+        ...prevState,
+        sport: value,
+      }));
+    } else {
+      setFormData(prevState => ({
+        ...prevState,
+        [name]: finalValue
+      }));
+    }
+  };
+  
   
   // const handleFileChange = (e) => {
   //   const { name, files } = e.target;
@@ -115,12 +131,12 @@ const StudentAddForm = () => {
             onChange={handleChange}
             className="input input-bordered w-full max-w-xs">
             <option value="">Select Sport</option>
-            {sports.map((sport) => (
-              <option key={sport.id} value={sport.name}>
-                {sport.name}
+            {Object.keys(sports).map((sportKey) => (
+              <option key={sportKey} value={sportKey}>
+                {sportKey}
               </option>
             ))}
-           </select>
+          </select>
 
             <input type="number" 
             name="contact" 
