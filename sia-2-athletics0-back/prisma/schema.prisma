@@ -90,7 +90,7 @@ model user {
 
 
 enum events_eventType {
-  INTERNAL
+  INTERNAL 
   EXTERNAL
 }
 
