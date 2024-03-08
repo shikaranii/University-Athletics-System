@@ -8,7 +8,7 @@ const StudentAddForm = () => {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
-    sport: { id: ''}, 
+    sportCat: '', 
     contact: 0,
     course: '',
     year: 0,
@@ -68,7 +68,7 @@ const StudentAddForm = () => {
   useEffect(() => {
     const fetchSports = async () => {
       try {
-        const response = await fetch(`${backendUrl}/SportCategory`);
+        const response = await fetch(`${backendUrl}/sportCat`);
         if (!response.ok) {
           throw new Error(`Failed to fetch sports: ${response.status} ${response.statusText}`);
         }
@@ -127,7 +127,7 @@ const StudentAddForm = () => {
             
             <select
             name="sport" // Changed to select element
-            value={formData.sport}
+            value={formData.sportCat}
             onChange={handleChange}
             className="input input-bordered w-full max-w-xs">
             <option value="">Select Sport</option>

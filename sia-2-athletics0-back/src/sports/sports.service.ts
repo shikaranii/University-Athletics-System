@@ -2,6 +2,8 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateSportDto } from './dto/create-sport.dto';
 import { UpdateSportDto } from './dto/update-sport.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
+// import { SportCategory } from 'enums';
+
 
 @Injectable()
 export class SportsService {
@@ -32,5 +34,11 @@ export class SportsService {
 
   remove(id: number) {
     return `This action removes a #${id} sport`;
+
+    
   }
+  async getAllSportCategories(): Promise<SportCategory[]> {
+    const sports = await this.prisma.prismaClient.sports.findMany();
+    return sports.map(sport => sport.sportCat);
+}
 }
