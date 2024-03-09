@@ -5,6 +5,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { SportCategory } from 'src/enums' ;
 
 
+
 @Injectable()
 export class SportsService {
   constructor(private readonly prisma: PrismaService) {}
@@ -39,6 +40,7 @@ export class SportsService {
   }
   async getAllSportCategories(): Promise<SportCategory[]> {
     const sports = await this.prisma.prismaClient.sports.findMany();
-    return sports.map(sport => sport.sportCat);
+    return sports.map(sport => sport.sportCat as unknown as SportCategory);
+
 }
 }

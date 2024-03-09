@@ -1,5 +1,5 @@
 // types.ts     
-
+import { SportCategory } from './enums';
 export interface Student {
     id: number;
     firstName: string;
@@ -18,8 +18,8 @@ export interface Student {
     // acadYear: number;
     // statusId: number;
     // status: Status;
-    Sports: string; // Optional as it's a one-to-one relationship
-    sportId?: number; // Optional as it's a foreign key referencing Sport
+    sport: SportCategory;  // Optional as it's a one-to-one relationship
+    // sportId?: number; // Optional as it's a foreign key referencing Sport
     // createdAt: Date;
     // updatedAt: Date;
   }
@@ -44,7 +44,7 @@ export interface Student {
    id: number;
    name: string;
    students: Student[]; // One-to-many relationship with Student
-  //  category: SportCategory;
+   category: SportCategory;
    //   createdAt: Date;
   //   updatedAt: Date;
   }

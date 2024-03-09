@@ -8,7 +8,7 @@ const StudentAddForm = () => {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
-    sportCat: '', 
+    sport: '', 
     contact: 0,
     course: '',
     year: 0,
@@ -127,7 +127,7 @@ const StudentAddForm = () => {
             
             <select
             name="sport" // Changed to select element
-            value={formData.sportCat}
+            value={formData.sport}
             onChange={handleChange}
             className="input input-bordered w-full max-w-xs">
             <option value="">Select Sport</option>
