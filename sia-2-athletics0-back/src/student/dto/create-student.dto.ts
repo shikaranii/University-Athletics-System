@@ -1,11 +1,8 @@
+import { SportCategory } from 'src/enums';
 export class CreateStudentDto {
     firstName: string;   
     lastName: string;   
-    sport: {
-        connect: {
-            id: number; // Assuming you're connecting by ID
-        };
-    };
+    sports: SportCategory[];
     contact: number;
     course: string; 
     year: number; 

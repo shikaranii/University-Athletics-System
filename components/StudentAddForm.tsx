@@ -20,15 +20,6 @@ const StudentAddForm = () => {
     medicalCertificate: '',
   });
 //iuseState ang sportCategory 
-  const [sports, setSports] = useState({
-    DoTA: '',
-    Valorant: '',
-    SwimmingMen: '',
-    SwimmingWomen: '',
-    BasketballMen: '',
-    BasketballWomen: '',
-  }); // Initialize sports state
-
   const handleChange = (e) => {
     const { name, value } = e.target;
   
@@ -55,6 +46,20 @@ const StudentAddForm = () => {
     }
   };
   
+  const handleSportChange = (e) => {
+    const { value, checked } = e.target;
+    if (checked) {
+      setFormData(prevState => ({
+        ...prevState,
+        sports: [...prevState.sport, value]
+      }));
+    } else {
+      setFormData(prevState => ({
+        ...prevState,
+        sports: prevState.sport.filter(sport => sport !== value)
+      }));
+    }
+  };
   
   // const handleFileChange = (e) => {
   //   const { name, files } = e.target;
@@ -65,23 +70,9 @@ const StudentAddForm = () => {
   // };
 
   //WILL EDIT THIS TO ADD SPORT SELECTION
-  useEffect(() => {
-    const fetchSports = async () => {
-      try {
-        const response = await fetch(`${backendUrl}/sportCat`);
-        if (!response.ok) {
-          throw new Error(`Failed to fetch sports: ${response.status} ${response.statusText}`);
-        }
-        const data = await response.json();
-        setSports(data);
-      } catch (error) {
-        console.error('Error fetching sports:', error);
-      }
-    };
+ 
 
-    fetchSports();
-  }, []);
-
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -124,7 +115,7 @@ const StudentAddForm = () => {
             className="input input-bordered w-full max-w-xs" />
             
             {/* <input type="text" name="email" value={formData.email} onChange={handleChange} placeholder="Email" className="input input-bordered w-full max-w-xs" /> */}
-            
+{/*             
             <select
             name="sport" // Changed to select element
             value={formData.sport}
@@ -136,7 +127,7 @@ const StudentAddForm = () => {
                 {sportKey}
               </option>
             ))}
-          </select>
+          </select> */}
 
             <input type="number" 
             name="contact" 
