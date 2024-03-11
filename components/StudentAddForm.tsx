@@ -8,7 +8,7 @@ const StudentAddForm = () => {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
-    sport: '', 
+    sports: [] as SportCategory[], 
     contact: 0,
     course: '',
     year: 0,
@@ -32,35 +32,10 @@ const StudentAddForm = () => {
     // Convert date to string if the name is 'birthdate' and value is a Date instance
     const finalValue = (name === 'birthdate' && value instanceof Date) ? value.toISOString() : processedValue;
   
-    // Update state based on the field name
-    if (name === 'sport') {
-      setFormData(prevState => ({
-        ...prevState,
-        sport: value,
-      }));
-    } else {
-      setFormData(prevState => ({
-        ...prevState,
-        [name]: finalValue
-      }));
-    }
   };
+
   
-  const handleSportChange = (e) => {
-    const { value, checked } = e.target;
-    if (checked) {
-      setFormData(prevState => ({
-        ...prevState,
-        sports: [...prevState.sport, value]
-      }));
-    } else {
-      setFormData(prevState => ({
-        ...prevState,
-        sports: prevState.sport.filter(sport => sport !== value)
-      }));
-    }
-  };
-  
+
   // const handleFileChange = (e) => {
   //   const { name, files } = e.target;
   //   setFormData(prevState => ({
@@ -69,7 +44,7 @@ const StudentAddForm = () => {
   //   }));
   // };
 
-  //WILL EDIT THIS TO ADD SPORT SELECTION
+
  
 
   
@@ -82,7 +57,7 @@ const StudentAddForm = () => {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(FormData)
       });
       if (response.ok) {
        
@@ -113,22 +88,7 @@ const StudentAddForm = () => {
             onChange={handleChange} 
             placeholder="Last Name" 
             className="input input-bordered w-full max-w-xs" />
-            
-            {/* <input type="text" name="email" value={formData.email} onChange={handleChange} placeholder="Email" className="input input-bordered w-full max-w-xs" /> */}
-{/*             
-            <select
-            name="sport" // Changed to select element
-            value={formData.sport}
-            onChange={handleChange}
-            className="input input-bordered w-full max-w-xs">
-            <option value="">Select Sport</option>
-            {Object.keys(sports).map((sportKey) => (
-              <option key={sportKey} value={sportKey}>
-                {sportKey}
-              </option>
-            ))}
-          </select> */}
-
+          
             <input type="number" 
             name="contact" 
             value={formData.contact} 
@@ -184,44 +144,13 @@ const StudentAddForm = () => {
             onChange={handleChange} 
             placeholder="Medical Certificate" 
             className="input input-bordered w-full max-w-xs" />
-            
+  
 
             <button type="submit" className="btn btn-primary">Submit</button>
           </form>
         </div>
       </section>
     </>
-    // <>
-    //   <section className="bg-gray-100 py-8">
-    //     <div className="container mx-auto">
-    //       <h2 className="text-3xl font-semibold text-gray-800 mb-4">Student-Athletes Add Profile</h2>
-    //       <form onSubmit={handleSubmit}>
-    //         {/* Input fields */}
-    //         <input type="text" name="firstName" value= placeholder="First Name" className="input input-bordered w-full max-w-xs" />
-    //         <input type="text" name="lastName" value= placeholder="Last Name" className="input input-bordered w-full max-w-xs" />
-    //         <input type="text" name="email" value= placeholder="Email" className="input input-bordered w-full max-w-xs" />
-    //         <input type="text" name="sport" value=  placeholder="Sport" className="input input-bordered w-full max-w-xs" />
-    //         <input type="text" name="contact" value=  placeholder="Contact" className="input input-bordered w-full max-w-xs" />
-    //         <input type="text" name="course" value=  placeholder="Course" className="input input-bordered w-full max-w-xs" />
-    //         <input type="number" name="year" value=  placeholder="Year" className="input input-bordered w-full max-w-xs" />
-    //         <input type="date" name="birthdate" value= placeholder="Birthdate" className="input input-bordered w-full max-w-xs" />
-    //         <input type="text" name="nationality" value= placeholder="Nationality" className="input input-bordered w-full max-w-xs" />
-    //         <input type="text" name="academicYear" value=  placeholder="Academic Year" className="input input-bordered w-full max-w-xs" />
-    //         <input type="number" name="weight" value= placeholder="Weight in KG" className="input input-bordered w-full max-w-xs" />
-    //         <input type="number" name="height" value=  placeholder="Height in CM" className="input input-bordered w-full max-w-xs" />
-    //         <input type="text" name="bloodType" value=  placeholder="Blood Type" className="input input-bordered w-full max-w-xs" />
-    //         <input type="number" name="emergencyContact" value=  placeholder="Emergency Contact" className="input input-bordered w-full max-w-xs" />
-    //         <input type="text" name="emergencyContactPerson" value=  placeholder="Emergency Contact Person" className="input input-bordered w-full max-w-xs" />
-
-
-
-    //         {/* Add other input fields */}
-    //         <input type="file" name="medicalCertificate" onChange={handleChange} placeholder="Medical Certificate" className="input input-bordered w-full max-w-xs" />
-    //         <button type="submit" className="btn btn-primary">Submit</button>
-    //       </form>
-    //     </div>
-    //   </section>
-    // </>
   );
-}
+  };
 export default StudentAddForm;
