@@ -145,7 +145,11 @@ const StudentAddForm = () => {
             placeholder="Medical Certificate" 
             className="input input-bordered w-full max-w-xs" />
   
-
+          <div>
+          <input
+            type="checkbox"
+          />
+          </div>
             <button type="submit" className="btn btn-primary">Submit</button>
           </form>
         </div>
