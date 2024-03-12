@@ -19,48 +19,27 @@ const StudentAddForm = () => {
     bloodType: '',
     medicalCertificate: '',
   });
-//iuseState ang sportCategory 
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-  
-    // If the name is 'contact' or 'year', convert value to integer
-    const updatedValue = (name === 'contact' || name === 'year') ? parseInt(value, 10) : value;
-  
-    // If the name is 'weight' or 'height', convert value to float
-    const processedValue = (name === 'weight' || name === 'height') ? parseFloat(value) : updatedValue;
-  
-    // Convert date to string if the name is 'birthdate' and value is a Date instance
-    const finalValue = (name === 'birthdate' && value instanceof Date) ? value.toISOString() : processedValue;
-  
+    // Update formData state based on input changes
+    setFormData(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
   };
 
-  
-
-  // const handleFileChange = (e) => {
-  //   const { name, files } = e.target;
-  //   setFormData(prevState => ({
-  //     ...prevState,
-  //     [name]: files[0]
-  //   }));
-  // };
-
-
- 
-
-  
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       const response = await fetch(`${backendUrl}/Student`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(FormData)
+        body: JSON.stringify(formData)
       });
       if (response.ok) {
-       
         console.log('Student added successfully');
       } 
     } catch (error) {
@@ -68,14 +47,26 @@ const StudentAddForm = () => {
     }
   };
 
+  const handleCheckboxChange = (sport) => {
+    const isSelected = formData.sports.includes(sport);
+    const updatedSports = isSelected ? formData.sports.filter((selected) => selected !== sport) : [...formData.sports, sport];
+    setFormData(prevState => ({
+      ...prevState,
+      sports: updatedSports
+    }));
+  };
+
   return (
-    <>
-      <section className="bg-gray-100 py-8">
-        <div className="container mx-auto">
-          <h2 className="text-3xl font-semibold text-gray-800 mb-4">Student-Athletes Add Profile</h2>
-          <form onSubmit={handleSubmit}>
-            {/* Input fields */}
-            <input type="text" 
+    <section className="bg-gray-100 py-8">
+      <div className="container mx-auto">
+        <h2 className="text-3xl font-semibold text-gray-800 mb-4">Student-Athletes Add Profile</h2>
+        <form onSubmit={handleSubmit}>
+          {/* Input fields */}
+          <input type="text" name="firstName" value={formData.firstName} onChange={handleChange} placeholder="First Name" className="input input-bordered w-full max-w-xs" />
+          {/* Other input fields */}
+          
+          {/* Checkbox group for selecting sports */}
+          <input type="text" 
             name="firstName" 
             value={formData.firstName} 
             onChange={handleChange} 
@@ -90,7 +81,7 @@ const StudentAddForm = () => {
             className="input input-bordered w-full max-w-xs" />
           
             <input type="number" 
-            name="contact" 
+            name  ="contact" 
             value={formData.contact} 
             onChange={handleChange} 
             placeholder="Contact" 
@@ -144,17 +135,14 @@ const StudentAddForm = () => {
             onChange={handleChange} 
             placeholder="Medical Certificate" 
             className="input input-bordered w-full max-w-xs" />
-  
-          <div>
-          <input
-            type="checkbox"
-          />
-          </div>
-            <button type="submit" className="btn btn-primary">Submit</button>
-          </form>
-        </div>
-      </section>
-    </>
+          
+          {/* Add other input fields */}
+          <input type="file" name="medicalCertificate" onChange={handleChange} placeholder="Medical Certificate" className="input input-bordered w-full max-w-xs" />
+          <button type="submit" className="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </section>
   );
-  };
+};
+
 export default StudentAddForm;
