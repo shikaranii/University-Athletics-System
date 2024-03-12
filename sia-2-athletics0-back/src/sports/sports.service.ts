@@ -15,11 +15,11 @@ export class SportsService {
   }
 
   async findAll() {
-    return this.prisma.prismaClient.sports.findMany();
+    return this.prisma.prismaClient.sport.findMany();
   }
 
   async findOne(id: number) {
-    const sport = this.prisma.prismaClient.sports.findUnique({ where: {id },
+    const sport = this.prisma.prismaClient.sport.findUnique({ where: {id },
     });
 
     if (!sport) {
@@ -38,9 +38,9 @@ export class SportsService {
 
     
   }
-  async getAllSportCategories(): Promise<SportCategory[]> {
-    const sports = await this.prisma.prismaClient.sports.findMany();
-    return sports.map(sport => sport.sportCat as unknown as SportCategory);
+  // async getAllSportCategories(): Promise<SportCategory[]> {
+  //   const sports = await this.prisma.prismaClient.sport.findMany();
+  //   return sports.map(sport => sport.sportCat as unknown as SportCategory);
 
 }
-}
+

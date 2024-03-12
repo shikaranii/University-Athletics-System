@@ -7,7 +7,7 @@ export class SportsController {
   constructor(private readonly sportsService: SportsService) {}
 
   @Get()
-  findAllSports(): Promise<SportCategory[]> {
-    return this.sportsService.getAllSportCategories();
+  findAll() {
+    return this.sportsService.findAll();
   }
 }

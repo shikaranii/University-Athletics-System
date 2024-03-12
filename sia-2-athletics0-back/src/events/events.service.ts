@@ -7,7 +7,7 @@ export class EventsService {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(createEventDto: CreateEventDto) {
-    return this.prisma.prismaClient.student.create({ data: CreateEventDto});
+    return this.prisma.prismaClient.student.findMany();
   }
 
   findAll() {
