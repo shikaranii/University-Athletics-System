@@ -181,8 +181,6 @@ const CoachAddForm: React.FC = () => {
             placeholder="Medical Certificate" 
             className="input input-bordered w-full max-w-xs" />
           
-          {/* Add other input fields */}
-          <input type="file" name="medicalCertificate" onChange={handleChange} placeholder="Medical Certificate" className="input input-bordered w-full max-w-xs" />
           <button type="submit" className="btn btn-primary">Submit</button>
         </form>
       </div>
