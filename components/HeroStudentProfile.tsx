@@ -3,53 +3,42 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Student } from '../src/types folder/types';
 
 const HeroStudentProfile = () => {
-
   const [students, setStudents] = useState([]);
+  const [rowsPerPage] = useState<number>(12);
+  const [currentPage, setCurrentPage] = useState<number>(1);
   const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3000';
-  // Fetching students
-  interface StudentAddProps {
-    student: Student;
-    handleDeleteStudent: (id: number) => void;
-    editStudent: (item: Student) => void;
-}
-// useEffect(() => {
-//   // Fetch student data from the backend API
-//   const fetchStudents = async () => {
-//     try {
-//       const response = await fetch(`${backendUrl}/student`);
-//       if (!response.ok) {
-//         throw new Error('Failed to fetch students');
-//       }
-//       const data = await response.json();
-//       setStudents(data); // Update state with fetched students
-//     } catch (error) {
-//       console.error('Error fetching students:', error);
-//     }
-//   };
 
-//   fetchStudents(); // Call the fetchStudents function when component mounts
-// }, []); // Empty dependency array to ensure effect runs only once
-
-const fetchStudents = useCallback(async () => {
-  try {
-    const response = await fetch(`${backendUrl}/Student`);
-    if (!response.ok) {
-      throw new Error('Failed to fetch students im so pretty');
+  const fetchStudents = useCallback(async () => {
+    try {
+      const response = await fetch(`${backendUrl}/Student`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch students');
+      }
+      const data: Student[] = await response.json();
+      setStudents(data);
+    } catch (error) {
+      console.error('Error fetching students:', error);
     }
-    const data = await response.json();
-    setStudents(data); // Update state with fetched students
-  } catch (error) {
-    console.error('Error fetching students:', error);
-    // Removed the console.log(data) line from here
-  }
-}, [backendUrl]);
+  }, [backendUrl]);
 
   useEffect(() => {
     fetchStudents();
-  },[fetchStudents]);
-
-  
-  const StudentProfile: React.FC<StudentAddProps> = ({ student, handleDeleteStudent, editStudent }) => { return (
+  }, [fetchStudents]); 
+  const handleDeleteStudent = async (id: number) => {
+    try {
+      const response = await fetch(`${backendUrl}/Student/${id}`, {
+        method: 'DELETE',
+      });
+      if (!response.ok) {
+        throw new Error('Failed to delete student');
+      }
+      // Filter out the deleted student from the state
+      setStudents(prevStudents => prevStudents.filter(student => student.id !== id));
+    } catch (error) {
+      console.error('Error deleting student:', error);
+    }
+  };
+  return (
     <>
   
       <section className="bg-gray-100 py-8">
@@ -65,9 +54,7 @@ const fetchStudents = useCallback(async () => {
           <a href="/profile/studentprofile/studentadd" className="btn btn-primary mr-4 bg-blue-900 text-white">
             Add Student Athlete
           </a>
-          <button onClick={() => handleDeleteStudent(students.id || 0)} className="btn btn-primary bg-red-900 text-white">
-          Delete Student
-          </button>
+          
 
         </div>
           <div className="overflow-x-auto">
@@ -100,6 +87,9 @@ const fetchStudents = useCallback(async () => {
                     <td>
                       <button className="text-blue-500 hover:underline">View</button>
                     </td>
+                    <td>
+                      <button onClick={() => handleDeleteStudent(student.id)}>Delete</button>
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -110,5 +100,5 @@ const fetchStudents = useCallback(async () => {
     </>
   );
 };
-}
+
 export default HeroStudentProfile;
