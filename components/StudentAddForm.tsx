@@ -7,8 +7,6 @@ const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3000
 
 const StudentAddForm: React.FC = () => {
   const [student, setStudents] = useState<Student[]>([]);
-  const [rowsPerPage] = useState<number>(12); // number of items that is being displayed in a row
-  const [totalPages, setTotalPages] = useState<number>(0); //
 
   // Fetching students
   const fetchStudent = useCallback(async () => {
@@ -20,12 +18,10 @@ const StudentAddForm: React.FC = () => {
       const data: Student[] = await response.json();
       setStudents(data);
       // Calculate total pages
-      const totalPages = Math.ceil(data.length / rowsPerPage);
-      setTotalPages(totalPages);
     } catch (error) {
       console.error(error);
     }
-  }, [backendUrl, rowsPerPage]);
+  }, [backendUrl]);
 
   useEffect(() => {
     fetchStudent();
@@ -34,7 +30,7 @@ const StudentAddForm: React.FC = () => {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
-    sports: [] as SportCategory[], 
+    sport: '', 
     contact: 0,
     course: '',
     year: 0,
@@ -48,7 +44,6 @@ const StudentAddForm: React.FC = () => {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    // Update formData state based on input changes
     setFormData(prevState => ({
       ...prevState,
       [name]: value
@@ -67,7 +62,6 @@ const StudentAddForm: React.FC = () => {
       });
       if (response.ok) {
         console.log('Student added successfully');
-        // Fetch students again to update the list
         fetchStudent();
       } else {
         throw new Error('Failed to add student');
@@ -77,18 +71,7 @@ const StudentAddForm: React.FC = () => {
     }
   };
 
-  //delete function
-  const handleDeleteStudent = async (studentId: number) => {
-    try {
-      await fetch(`${backendUrl}/Student/${studentId}`, {
-        method: 'DELETE',
-      });
-      setStudents((prevStudents) => prevStudents.filter((student) => student.id !== studentId));
-    } catch (error) {
-      console.error('Error occurred while deleting student:', error);
-    }
-  };
-  
+//edit function
   const editStudent = async (editedStudent: Student) => {
     try {
       const response = await fetch(`${backendUrl}/Student/${editedStudent.id}`, {
@@ -110,7 +93,6 @@ const StudentAddForm: React.FC = () => {
         <h2 className="text-3xl font-semibold text-gray-800 mb-4">Student-Athletes Add Profile</h2>
         <form onSubmit={handleSubmit}>
   
-          
           {/* Checkbox group for selecting sports */}
           <input type="text" 
             name="firstName" 
