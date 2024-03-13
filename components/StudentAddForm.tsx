@@ -1,14 +1,36 @@
 'use client'
-import React, { useCallback, useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, ChangeEvent, FormEvent } from 'react';
 import { Student } from '../src/types folder/types';
 import { SportCategory } from '../src/types folder/enums';
 
 const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3000';
-const [students, setStudents] = useState<Student[]>([]);
-const [rowsPerPage] = useState(12); // number of items that is being displayed in a row
-const [totalPages, setTotalPages] = useState(0); //
 
-const StudentAddForm = () => {
+const StudentAddForm: React.FC = () => {
+  const [students, setStudents] = useState<Student[]>([]);
+  const [rowsPerPage] = useState<number>(12); // number of items that is being displayed in a row
+  const [totalPages, setTotalPages] = useState<number>(0); //
+
+  // Fetching students
+  const fetchStudent = useCallback(async () => {
+    try {
+      const response = await fetch(`${backendUrl}/Student`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch students');
+      }
+      const data: Student[] = await response.json();
+      setStudents(data);
+      // Calculate total pages
+      const totalPages = Math.ceil(data.length / rowsPerPage);
+      setTotalPages(totalPages);
+    } catch (error) {
+      console.error(error);
+    }
+  }, [backendUrl, rowsPerPage]);
+
+  useEffect(() => {
+    fetchStudent();
+  }, [fetchStudent]);
+
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -24,27 +46,7 @@ const StudentAddForm = () => {
     medicalCertificate: '',
   });
 
-  //fetching students
-  const fetchStudent = useCallback(async () => {
-      try {
-          const response = await fetch(`${backendUrl}/Student`);
-          if (!response.ok) {
-              throw new Error('Failed to fetch students');
-          }
-          const data: Student[] = await response.json();
-          setStudents(data);
-          // Calculate total pages
-          const totalPages = Math.ceil(data.length / rowsPerPage);
-          setTotalPages(totalPages);
-      } catch (error) {
-          console.error(error);
-      }
-  }, [backendUrl, rowsPerPage]);
-  useEffect(() => {
-    fetchStudent();
-  }, [fetchStudent]);
-  
-const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     // Update formData state based on input changes
     setFormData(prevState => ({
@@ -53,19 +55,7 @@ const handleChange = (e) => {
     }));
   };
 
-  // to be fixed, delete function
-const handleDeleteStudent = async (studentId: number) => {}
-try {
-  await fetch(`${backendUrl}/Student/${students}`, {
-      method: 'DELETE',
-  });
-  setStudents((prevStudent) => prevStudent.filter((student) => student.id !== studentId));
-} catch (error) {
-  console.error('Failed to delete student:', error);
-}
-};  
-
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       const response = await fetch(`${backendUrl}/Student`, {
@@ -73,43 +63,52 @@ try {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(FormData)
+        body: JSON.stringify(formData)
       });
       if (response.ok) {
         console.log('Student added successfully');
-      } 
+        // Fetch students again to update the list
+        fetchStudent();
+      } else {
+        throw new Error('Failed to add student');
+      }
     } catch (error) {
       console.error('Error occurred while adding student', error);
     }
   };
 
-  //edit function 
-  const editStudent = async (editedStudent = students) => {
+  const handleDeleteStudent = async (studentId: number) => {
+    try {
+      await fetch(`${backendUrl}/Student/${studentId}`, {
+        method: 'DELETE',
+      });
+      setStudents((prevStudents) => prevStudents.filter((student) => student.id !== studentId));
+    } catch (error) {
+      console.error('Error occurred while deleting student:', error);
+    }
+  };
+  
+  const editStudent = async (editedStudent: Student) => {
     try {
       const response = await fetch(`${backendUrl}/Student/${editedStudent.id}`, {
         method: 'PATCH',
-        headers: { 'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(editedStudent).
-    }); 
-    if (!response.ok){
-      throw new Error('Failed to edit student');
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(editedStudent),
+      }); 
+      if (!response.ok) {
+        throw new Error('Failed to edit student');
+      }
+      fetchStudent();
+    } catch (err) {
+      console.log(err.message);
     }
-    fetchStudent();
-  } catch (err) {
-    console.log(err.message);
   }
-
-  }
-
   return (
     <section className="bg-gray-100 py-8">
       <div className="container mx-auto">
         <h2 className="text-3xl font-semibold text-gray-800 mb-4">Student-Athletes Add Profile</h2>
         <form onSubmit={handleSubmit}>
-          {/* Input fields */}
-          <input type="text" name="firstName" value={formData.firstName} onChange={handleChange} placeholder="First Name" className="input input-bordered w-full max-w-xs" />
-          {/* Other input fields */}
+  
           
           {/* Checkbox group for selecting sports */}
           <input type="text" 
@@ -189,9 +188,6 @@ try {
       </div>
     </section>
   );
-
+  }
 export default StudentAddForm;
-
-function fetchStudent() {
-  throw new Error('Function not implemented.');
-}
+  

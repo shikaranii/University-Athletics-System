@@ -59,3 +59,27 @@ export interface Student {
     startDate: Date;
     endDate: Date;
   }
+  export interface Faculty {
+    id: number;
+    name: string;
+    lastName: string;
+    contact: number;
+    course: string;
+    // courseId: number;
+    year: number;
+    // emergencyContact: number;
+    // emergencyContactPerson: string;
+    // nationality: string;
+    weight: number;
+    height: number;
+    birthDate: number;
+    // bloodType: string;
+    // acadYear: number;
+    // statusId: number;
+    // status: Status;
+    sport: SportCategory;  // Optional as it's a one-to-one relationship
+    // sportId?: number; // Optional as it's a foreign key referencing Sport
+    // createdAt: Date;
+    // updatedAt: Date;
+  }
+  
