@@ -6,7 +6,7 @@ import { SportCategory } from '../src/types folder/enums';
 const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3000';
 
 const StudentAddForm: React.FC = () => {
-  const [students, setStudents] = useState<Student[]>([]);
+  const [student, setStudents] = useState<Student[]>([]);
   const [rowsPerPage] = useState<number>(12); // number of items that is being displayed in a row
   const [totalPages, setTotalPages] = useState<number>(0); //
 
@@ -77,6 +77,7 @@ const StudentAddForm: React.FC = () => {
     }
   };
 
+  //delete function
   const handleDeleteStudent = async (studentId: number) => {
     try {
       await fetch(`${backendUrl}/Student/${studentId}`, {

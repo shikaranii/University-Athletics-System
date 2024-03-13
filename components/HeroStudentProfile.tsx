@@ -1,11 +1,17 @@
 'use client'
 import React, { useState, useEffect, useCallback } from 'react';
-
-const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3000';
+import { Student } from '../src/types folder/types';
 
 const HeroStudentProfile = () => {
-  const [students, setStudents] = useState([]);
 
+  const [students, setStudents] = useState([]);
+  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3000';
+  // Fetching students
+  interface StudentAddProps {
+    student: Student;
+    handleDeleteStudent: (id: number) => void;
+    editStudent: (item: Student) => void;
+}
 // useEffect(() => {
 //   // Fetch student data from the backend API
 //   const fetchStudents = async () => {
@@ -26,7 +32,7 @@ const HeroStudentProfile = () => {
 
 const fetchStudents = useCallback(async () => {
   try {
-    const response = await fetch(`${backendUrl}/student`);
+    const response = await fetch(`${backendUrl}/Student`);
     if (!response.ok) {
       throw new Error('Failed to fetch students im so pretty');
     }
@@ -42,7 +48,8 @@ const fetchStudents = useCallback(async () => {
     fetchStudents();
   },[fetchStudents]);
 
-  return (
+  
+  const StudentProfile: React.FC<StudentAddProps> = ({ student, handleDeleteStudent, editStudent }) => { return (
     <>
   
       <section className="bg-gray-100 py-8">
@@ -54,9 +61,15 @@ const fetchStudents = useCallback(async () => {
 
       <section className="bg-gray-100 py-12">
         <div className="container mx-auto">
-          <a href="/profile/studentprofile/studentadd" className="btn btn-primary absolute top-10 md:top-10 right-10 md:right-10 mt-4 mr-4 bg-blue-900 text-white">
+        <div className="flex">
+          <a href="/profile/studentprofile/studentadd" className="btn btn-primary mr-4 bg-blue-900 text-white">
             Add Student Athlete
           </a>
+          <button onClick={() => handleDeleteStudent(students.id || 0)} className="btn btn-primary bg-red-900 text-white">
+          Delete Student
+          </button>
+
+        </div>
           <div className="overflow-x-auto">
             <table className="table w-full">
               <thead>
@@ -97,5 +110,5 @@ const fetchStudents = useCallback(async () => {
     </>
   );
 };
-
+}
 export default HeroStudentProfile;
