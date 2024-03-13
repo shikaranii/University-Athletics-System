@@ -9,12 +9,13 @@ import { PrismaModule } from './prisma/prisma.module';
 import { StudentModule } from './student/student.module';
 import { FacultyModule } from './faculty/faculty.module';
 import { UsersModule } from './users/users.module';
+import { InventoryModule } from './inventory/inventory.module';
 
 
 @Module({
   // imports: [ SportsModule, EventsModule, StudentModule],
 
-  imports: [ PrismaModule, StudentModule, EventsModule, SportsModule, FacultyModule, UsersModule],
+  imports: [ PrismaModule, StudentModule, EventsModule, SportsModule, FacultyModule, UsersModule, InventoryModule],
   controllers: [AppController]
   ,
   providers: [AppService],

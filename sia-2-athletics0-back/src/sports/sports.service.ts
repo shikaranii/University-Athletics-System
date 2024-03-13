@@ -4,8 +4,6 @@ import { UpdateSportDto } from './dto/update-sport.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { SportCategory } from 'src/enums' ;
 
-
-
 @Injectable()
 export class SportsService {
   constructor(private readonly prisma: PrismaService) {}
