@@ -9,16 +9,16 @@ export class FacultyService {
 
   async create(createFacultyDto: CreateFacultyDto) {
     return this.prisma.prismaClient.faculty.create({ 
-      data: 
-      name: createFacultyDto.name,
-      email: createFacultyDto.email,
-      year: createFacultyDto.year,
-      emergencyContact: createFacultyDto.emergencyContact,
-      emergencyContactPerson: createFacultyDto.emergencyContactPerson,
-      nationality: createFacultyDto.nationality,
-      weight: createFacultyDto.weight,
-      height: createFacultyDto.height
-      bloodType: createFacultyDto.bloodType,
+      data: {
+        name: createFacultyDto.name,
+        email: createFacultyDto.email,
+        year: createFacultyDto.year,
+        emergencyContact: createFacultyDto.emergencyContact,
+        emergencyContactPerson: createFacultyDto.emergencyContactPerson,
+        nationality: createFacultyDto.nationality,
+        weight: createFacultyDto.weight,
+        height: createFacultyDto.height,
+      }
     });
   }
   async findAll() {

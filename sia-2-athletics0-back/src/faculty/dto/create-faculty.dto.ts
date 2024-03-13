@@ -1,5 +1,6 @@
 export class CreateFacultyDto {
-        name: string;  
+        name: string; 
+        email: string; 
         year: number; 
         emergencyContact: number; 
         emergencyContactPerson: string;
