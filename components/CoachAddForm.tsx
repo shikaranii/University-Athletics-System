@@ -1,7 +1,7 @@
 'use client'
 import React, { useState, useEffect, useCallback, ChangeEvent, FormEvent } from 'react';
 import { Faculty } from '../src/types folder/types';
-import { SportCategory } from '../src/types folder/enums';
+
 
 const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3000';
 
@@ -10,12 +10,12 @@ const CoachAddForm: React.FC = () => {
   const [rowsPerPage] = useState<number>(12); // number of items that is being displayed in a row
   const [totalPages, setTotalPages] = useState<number>(0); //
 
-  // Fetching students
+  // Fetching faculty
   const fecthFaculty = useCallback(async () => {
     try {
       const response = await fetch(`${backendUrl}/Faculty`);
       if (!response.ok) {
-        throw new Error('Failed to fetch students');
+        throw new Error('Failed to fetch faculty');
       }
       const data: Faculty[] = await response.json();
       setFacMembers(data);
@@ -32,18 +32,11 @@ const CoachAddForm: React.FC = () => {
   }, [fecthFaculty]);
 
   const [formData, setFormData] = useState({
-    firstName: '',
+    name: '',
     lastName: '',
-    sports: [] as SportCategory[], 
     contact: 0,
-    course: '',
-    year: 0,
-    birthdate: '',
-    nationality: '',
     weight: 0,
     height: 0,
-    bloodType: '',
-    medicalCertificate: '',
   });
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -58,7 +51,7 @@ const CoachAddForm: React.FC = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${backendUrl}/Student`, {
+      const response = await fetch(`${backendUrl}/Faculty`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -66,8 +59,8 @@ const CoachAddForm: React.FC = () => {
         body: JSON.stringify(formData)
       });
       if (response.ok) {
-        console.log('Student added successfully');
-        // Fetch students again to update the list
+        console.log('Faculty added successfully');
+        // Fetch facutlty again to update the list
         fecthFaculty();
       } else {
         throw new Error('Failed to add faculty');
@@ -84,7 +77,7 @@ const CoachAddForm: React.FC = () => {
       });
       setFacMembers((prevStudents) => prevStudents.filter((faculty) => faculty.id !== facultyId));
     } catch (error) {
-      console.error('Error occurred while deleting student:', error);
+      console.error('Error occurred while deleting faculty:', error);
     }
   };
   
@@ -96,7 +89,7 @@ const CoachAddForm: React.FC = () => {
         body: JSON.stringify(editFaculty),
       }); 
       if (!response.ok) {
-        throw new Error('Failed to edit student');
+        throw new Error('Failed to edit faculty');
       }
       fecthFaculty();
     } catch (err) {
@@ -106,14 +99,14 @@ const CoachAddForm: React.FC = () => {
   return (
     <section className="bg-gray-100 py-8">
       <div className="container mx-auto">
-        <h2 className="text-3xl font-semibold text-gray-800 mb-4">Student-Athletes Add Profile</h2>
+        <h2 className="text-3xl font-semibold text-gray-800 mb-4">Coaches Add Profile</h2>
         <form onSubmit={handleSubmit}>
   
           
           {/* Checkbox group for selecting sports */}
           <input type="text" 
-            name="firstName" 
-            value={formData.firstName} 
+            name="name" 
+            value={formData.name} 
             onChange={handleChange} 
             placeholder="First Name" 
             className="input input-bordered w-full max-w-xs" />
@@ -130,34 +123,6 @@ const CoachAddForm: React.FC = () => {
             value={formData.contact} 
             onChange={handleChange} 
             placeholder="Contact" 
-            className="input input-bordered w-full max-w-xs" />
-
-            <input type="text" 
-            name="course" 
-            value={formData.course} 
-            onChange={handleChange} 
-            placeholder="Course" 
-            className="input input-bordered w-full max-w-xs" />
-            
-            <input type="number" 
-            name="year" 
-            value={formData.year} 
-            onChange={handleChange} 
-            placeholder="Year" 
-            className="input input-bordered w-full max-w-xs" />
-
-            <input type="date" 
-            name="birthdate" 
-            value={formData.birthdate} 
-            onChange={handleChange} 
-            placeholder="birthdate" 
-            className="input input-bordered w-full max-w-xs" />
-
-            <input type="text" 
-            name="nationality" 
-            value={formData.nationality}
-            onChange={handleChange} 
-            placeholder="Nationality" 
             className="input input-bordered w-full max-w-xs" />
 
             <input type="number" 

@@ -24,6 +24,8 @@ const HeroStudentProfile = () => {
   useEffect(() => {
     fetchStudents();
   }, [fetchStudents]); 
+
+  //delete function
   const handleDeleteStudent = async (id: number) => {
     try {
       const response = await fetch(`${backendUrl}/Student/${id}`, {

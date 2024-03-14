@@ -1,28 +1,43 @@
 'use client';
 import React, { useState, useEffect, useCallback } from 'react';
+import { Faculty } from '../src/types folder/types';
 
-const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3000';
 
 const coachProfile = () => {
  const [coaches, setCoaches] = useState([]);
-
+ const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3000';
+ 
  const fetchCoaches = useCallback(async () => {
-    try {
-      const response = await fetch(`${backendUrl}/coach`);
-      if (!response.ok) {
-        throw new Error('Failed to fetch coaches');
-      }
-      const data = await response.json();
-      setCoaches(data); // Update state with fetched coaches
-    } catch (error) {
-      console.error('Error fetching coaches:', error);
+  try {
+    const response = await fetch(`${backendUrl}/Faculty`);
+    if (!response.ok) {
+      throw new Error('Failed to fetch Faculty');
     }
- }, [backendUrl]);
+    const data: Faculty[] = await response.json();
+    setCoaches(data);
+  } catch (error) {
+    console.error('Error fetching Faculty:', error);
+  }
+}, [backendUrl]);
 
- useEffect(() => {
-    fetchCoaches();
- }, [fetchCoaches]);
+useEffect(() => {
+  fetchCoaches();
+}, [fetchCoaches]); 
 
+ //delete function
+ const handleDeleteFaculty = async (id: number) => {
+  try {
+    const response = await fetch(`${backendUrl}/Faculty/${id}`, {
+      method: 'DELETE',
+    });
+    if (!response.ok) {
+      throw new Error('Failed to delete faculty');
+    }
+    setCoaches(prevCoaches => prevCoaches.filter(faculty => faculty.id !== id));
+  } catch (error) {
+    console.error('Error deleting faculty:', error);
+  }
+};
  return (
     <>
       <section className="bg-gray-100 py-8">
@@ -52,13 +67,16 @@ const coachProfile = () => {
                 {coaches.map((coach, index) => (
                  <tr key={index}>
                     <td className="text-lg font-medium text-black">{coach.id}</td>
-                    <td className="text-lg font-medium text-black">{coach.firstName}</td>
+                    <td className="text-lg font-medium text-black">{coach.name}</td>
                     <td className="text-lg font-medium text-black">{coach.lastName}</td>
                     <td className="text-lg font-medium text-black">{coach.contact}</td>
              
         
                     <td>
                       <button className="text-blue-500 hover:underline">View</button>
+                    </td>
+                    <td>
+                      <button onClick={() => handleDeleteFaculty(coach.id)}>Delete</button>
                     </td>
                  </tr>
                 ))}

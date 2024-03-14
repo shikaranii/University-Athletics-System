@@ -2,7 +2,6 @@ import { SportCategory } from 'src/enums';
 export class CreateStudentDto {
     firstName: string;   
     lastName: string;   
-    sports: SportCategory[];
     contact: number;
     course: string; 
     year: number; 

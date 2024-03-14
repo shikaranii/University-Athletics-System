@@ -1,7 +1,7 @@
 'use client'
 import React, { useState, useEffect, useCallback, ChangeEvent, FormEvent } from 'react';
-import { Student } from '../src/types folder/types';
-import { SportCategory } from '../src/types folder/enums';
+import { Student } from '../src/facultytypes.ts/types';
+import { SportCategory } from '../src/facultytypes.ts/enums';
 
 const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3000';
 
@@ -30,7 +30,7 @@ const StudentAddForm: React.FC = () => {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
-    sport: '', 
+    // sport: '  ', 
     contact: 0,
     course: '',
     year: 0,
