@@ -6,6 +6,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 @Injectable()
 export class InventoryService {
   constructor(private readonly prisma: PrismaService) {}
+  
   async create(createInventoryDto: CreateInventoryDto) {
     return 'This action adds a new inventory';
   }

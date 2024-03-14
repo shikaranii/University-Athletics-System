@@ -32,9 +32,10 @@ model faculty {
   bloodType              String?
 }
 
-model inventoryitems {
+model inventoryitem {
   id      Int    @id @default(autoincrement())
   name    String @unique(map: "InventoryItems_name_key")
+  itemType String?
   SportId Int
 }
 
