@@ -31,7 +31,7 @@ const StudentAddForm: React.FC = () => {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
-    // sport: '  ', 
+    sport: [] as SportCategory[], 
     contact: '',
     course: '',
     year: '',
@@ -68,17 +68,27 @@ const StudentAddForm: React.FC = () => {
       [name]: parsedValue
     }));
   };
-
+  
   const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value, checked } = e.target;
+    const sportValue = value as unknown as SportCategory; // Type assertion to SportCategory
     if (checked) {
-      // If the checkbox is checked, add the value to the array in formData
-      setSports(prevSports => [...prevSports, mapToSportCategory(value)]);
+      // If the checkbox is checked, add the sport to the array in formData
+      setFormData(prevData => ({
+        ...prevData,
+        sports: [...prevData.sport, sportValue],
+      }));
     } else {
-      // If the checkbox is unchecked, remove the value from the array in formData
-      setSports(prevSports => prevSports.filter(sport => sport !== mapToSportCategory(value)));
+      // If the checkbox is unchecked, remove the sport from the array in formData
+      setFormData(prevData => ({
+        ...prevData,
+        sports: prevData.sport.filter(sport => sport !== sportValue),
+      }));
     }
   };
+  
+  
+  
   
   // Function to map string value to SportCategory enum value
   const mapToSportCategory = (value: string): SportCategory => {
@@ -220,10 +230,23 @@ const StudentAddForm: React.FC = () => {
             type="checkbox" 
             className="form-checkbox h-5 w-5 text-indigo-600 transition duration-150 ease-in-out rounded-x1" 
             name="sports" 
+            value={SportCategory.SwimmingMen} // Example of a sport category value
+            checked={sports.includes(SportCategory.SwimmingMen)} // Check if the sport is selected
+            onChange={handleCheckboxChange} 
+      // Adding rounded-md for rounded edges
+            />
+            <span className="ml-2 text-gray-700">Swimming Men</span>
+
+          </label>
+          <label className="inline-flex items-center">
+          <input 
+            type="checkbox" 
+            className="form-checkbox h-5 w-5 text-indigo-600 transition duration-150 ease-in-out rounded-x1" 
+            name="sports" 
             value={SportCategory.Valorant} // Example of a sport category value
             checked={sports.includes(SportCategory.Valorant)} // Check if the sport is selected
             onChange={handleCheckboxChange} 
-        // Adding rounded-md for rounded edges
+      // Adding rounded-md for rounded edges
             />
             <span className="ml-2 text-gray-700">Valorant</span>
           </label>
