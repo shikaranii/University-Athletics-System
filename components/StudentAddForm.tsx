@@ -1,11 +1,14 @@
 'use client'
 import React, { useState, useEffect, useCallback, ChangeEvent, FormEvent } from 'react';
 import { Student } from '../src/facultytypes.ts/types';
+import { SportCategory } from '../src/types folder/types';
 
 const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3000';
 
 const StudentAddForm: React.FC = () => {
   const [student, setStudents] = useState<Student[]>([]);
+  const [sports, setSports] = useState<SportCategory[]>([]);
+
 
   // Fetching students
   const fetchStudent = useCallback(async () => {
@@ -65,24 +68,31 @@ const StudentAddForm: React.FC = () => {
       [name]: parsedValue
     }));
   };
+
+  const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { value, checked } = e.target;
+    if (checked) {
+      // If the checkbox is checked, add the value to the array in formData
+      setSports(prevSports => [...prevSports, mapToSportCategory(value)]);
+    } else {
+      // If the checkbox is unchecked, remove the value from the array in formData
+      setSports(prevSports => prevSports.filter(sport => sport !== mapToSportCategory(value)));
+    }
+  };
   
-  // //handle change for checkbox
-  // const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
-  //   const { value, checked } = e.target;
-  //   if (checked) {
-  //     // If the checkbox is checked, add the value to the array in formData
-  //     setFormData(prevState => ({
-  //       ...prevState,
-  //       sports: [...prevState.sports, value]
-  //     }));
-  //   } else {
-  //     // If the checkbox is unchecked, remove the value from the array in formData
-  //     setFormData(prevState => ({
-  //       ...prevState,
-  //       sports: prevState.sports.filter(sport => sport !== value)
-  //     }));
-  //   }
-  // };
+  // Function to map string value to SportCategory enum value
+  const mapToSportCategory = (value: string): SportCategory => {
+    switch (value) {
+      case 'Valorant':
+        return SportCategory.Valorant;
+      case 'Swimming Men':
+        return SportCategory.SwimmingMen;
+      // Add more cases for other sports categories if needed
+      default:
+        throw new Error(`Unknown sport category: ${value}`);
+    }
+  };
+  
   
 
 
@@ -130,6 +140,10 @@ const StudentAddForm: React.FC = () => {
         <form onSubmit={handleSubmit}>
   
           {/* Checkbox group for selecting sports */}
+      
+
+          {/* Add more checkboxes for other sports categories */}
+
           <input type="text" 
             name="firstName" 
             value={formData.firstName} 
@@ -201,7 +215,21 @@ const StudentAddForm: React.FC = () => {
             className="input input-bordered w-full max-w-xs mb-4" />
           {/* Checkboxes */}
 
-      
+          <label className="inline-flex items-center">
+          <input 
+            type="checkbox" 
+            className="form-checkbox h-5 w-5 text-indigo-600 transition duration-150 ease-in-out rounded-x1" 
+            name="sports" 
+            value={SportCategory.Valorant} // Example of a sport category value
+            checked={sports.includes(SportCategory.Valorant)} // Check if the sport is selected
+            onChange={handleCheckboxChange} 
+        // Adding rounded-md for rounded edges
+            />
+            <span className="ml-2 text-gray-700">Valorant</span>
+          </label>
+
+
+
           <button type="submit" className="btn btn-primary">Submit</button>
         </form>
       </div>

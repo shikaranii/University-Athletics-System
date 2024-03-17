@@ -1,5 +1,4 @@
 // types.ts     
-import { SportCategory } from './enums';
 export interface Student {
     id: number;
     firstName: string;
@@ -10,7 +9,7 @@ export interface Student {
     year: number;
     // emergencyContact: number;
     // emergencyContactPerson: string;
-    // nationality: string;
+    nationality: string;
     weight: number;
     height: number;
     birthDate: number;
@@ -83,3 +82,12 @@ export interface Student {
     // updatedAt: Date;
   }
   
+  export enum SportCategory {
+
+    Valorant,
+    SwimmingMen,
+    SwimmingWomen,
+    BasketballMen,
+    BasketballWomen,
+    map
+  }
