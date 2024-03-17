@@ -35,11 +35,21 @@ export class FacultyService {
 
     return faculty;
   }
+
+  //this to update
   update(id: number, updateFacultyDto: UpdateFacultyDto) {
     return `This action updates a #${id} faculty`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} faculty`;
+  //edit this to remove/delete 
+  async remove(id: number) {
+    const existingFaculty = await this.prisma.prismaClient.faculty.findUnique({where: {id},
+    });
+
+    if (!existingFaculty) {
+      throw new NotFoundException('Student with ID ${id} not found')
+    }
+
+    return this.prisma.prismaClient.faculty.delete({where: {id},});
   }
 }

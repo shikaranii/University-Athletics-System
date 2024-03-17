@@ -38,6 +38,7 @@ useEffect(() => {
     console.error('Error deleting faculty:', error);
   }
 };
+
  return (
     <>
       <section className="bg-gray-100 py-8">

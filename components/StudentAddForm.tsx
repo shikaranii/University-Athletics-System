@@ -1,7 +1,6 @@
 'use client'
 import React, { useState, useEffect, useCallback, ChangeEvent, FormEvent } from 'react';
 import { Student } from '../src/facultytypes.ts/types';
-import { SportCategory } from '../src/facultytypes.ts/enums';
 
 const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3000';
 
@@ -17,7 +16,6 @@ const StudentAddForm: React.FC = () => {
       }
       const data: Student[] = await response.json();
       setStudents(data);
-      // Calculate total pages
     } catch (error) {
       console.error(error);
     }
@@ -31,24 +29,62 @@ const StudentAddForm: React.FC = () => {
     firstName: '',
     lastName: '',
     // sport: '  ', 
-    contact: 0,
+    contact: '',
     course: '',
-    year: 0,
+    year: '',
     birthdate: '',
     nationality: '',
-    weight: 0,
-    height: 0,
+    weight: '',
+    height: '',
     bloodType: '',
     medicalCertificate: '',
   });
 
+  //handle change in the frontend
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+    let parsedValue: string | number;
+  
+    // Check if the value is a date string
+    if (name === 'birthdate') {
+      const parsedDate = new Date(value); // Parse the date string
+      if (!isNaN(parsedDate.getTime())) { // Check if it's a valid date
+        const formattedDate = parsedDate.toISOString().split('T')[0]; // Convert date to yyyy-MM-dd format
+        parsedValue = formattedDate;
+      } else {
+        parsedValue = value; // If invalid date, keep the original value
+      }
+    } else if (['contact', 'year', 'weight', 'height'].includes(name)) {
+      parsedValue = parseInt(value, 10); // Convert specific fields to integers
+    } else {
+      parsedValue = value; // Leave other fields as strings
+    }
+  
     setFormData(prevState => ({
       ...prevState,
-      [name]: value
+      [name]: parsedValue
     }));
   };
+  
+  // //handle change for checkbox
+  // const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
+  //   const { value, checked } = e.target;
+  //   if (checked) {
+  //     // If the checkbox is checked, add the value to the array in formData
+  //     setFormData(prevState => ({
+  //       ...prevState,
+  //       sports: [...prevState.sports, value]
+  //     }));
+  //   } else {
+  //     // If the checkbox is unchecked, remove the value from the array in formData
+  //     setFormData(prevState => ({
+  //       ...prevState,
+  //       sports: prevState.sports.filter(sport => sport !== value)
+  //     }));
+  //   }
+  // };
+  
+
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -99,71 +135,73 @@ const StudentAddForm: React.FC = () => {
             value={formData.firstName} 
             onChange={handleChange} 
             placeholder="First Name" 
-            className="input input-bordered w-full max-w-xs" />
-
+            className="input input-bordered w-full max-w-xs mb-4" />
+          
             <input type="text" 
             name="lastName" 
             value={formData.lastName} 
             onChange={handleChange} 
             placeholder="Last Name" 
-            className="input input-bordered w-full max-w-xs" />
+            className="input input-bordered w-full max-w-xs mb-4" />
           
             <input type="number" 
             name  ="contact" 
             value={formData.contact} 
             onChange={handleChange} 
             placeholder="Contact" 
-            className="input input-bordered w-full max-w-xs" />
+            className="input input-bordered w-full max-w-xs mb-4" />
 
             <input type="text" 
             name="course" 
             value={formData.course} 
             onChange={handleChange} 
             placeholder="Course" 
-            className="input input-bordered w-full max-w-xs" />
+            className="input input-bordered w-full max-w-xs mb-4" />
             
             <input type="number" 
             name="year" 
             value={formData.year} 
             onChange={handleChange} 
             placeholder="Year" 
-            className="input input-bordered w-full max-w-xs" />
+            className="input input-bordered w-full max-w-xs mb-4" />
 
             <input type="date" 
             name="birthdate" 
             value={formData.birthdate} 
             onChange={handleChange} 
             placeholder="birthdate" 
-            className="input input-bordered w-full max-w-xs" />
+            className="input input-bordered w-full max-w-xs mb-4" />
 
             <input type="text" 
             name="nationality" 
             value={formData.nationality}
             onChange={handleChange} 
             placeholder="Nationality" 
-            className="input input-bordered w-full max-w-xs" />
+            className="input input-bordered w-full max-w-xs mb-4" />
 
             <input type="number" 
             name="weight" 
             value={formData.weight} 
             onChange={handleChange} 
             placeholder="Weight in KG" 
-            className="input input-bordered w-full max-w-xs" />
+            className="input input-bordered w-full max-w-xs mb-4" />
 
             <input type="number" 
             name="height" 
             value={formData.height} 
             onChange={handleChange} 
             placeholder="Height in CM" 
-            className="input input-bordered w-full max-w-xs" />
+            className="input input-bordered w-full max-w-xs mb-4" />
             {/* Add other input fields */}
             
             <input type="file" 
             name="medicalCertificate" 
             onChange={handleChange} 
             placeholder="Medical Certificate" 
-            className="input input-bordered w-full max-w-xs" />
-       
+            className="input input-bordered w-full max-w-xs mb-4" />
+          {/* Checkboxes */}
+
+      
           <button type="submit" className="btn btn-primary">Submit</button>
         </form>
       </div>
