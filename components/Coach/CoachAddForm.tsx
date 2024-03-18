@@ -1,6 +1,6 @@
 'use client'
 import React, { useState, useEffect, useCallback, ChangeEvent, FormEvent } from 'react';
-import { Faculty } from '../src/types folder/types';
+import { Faculty } from '../../src/types folder/types';
 
 
 const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3000';

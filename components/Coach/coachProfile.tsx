@@ -1,6 +1,6 @@
 'use client';
 import React, { useState, useEffect, useCallback } from 'react';
-import { Faculty } from '../src/types folder/types';
+import { Faculty } from '../../src/types folder/types';
 
 
 const coachProfile = () => {

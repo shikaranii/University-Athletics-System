@@ -22,7 +22,7 @@ model events {
 model faculty {
   id                     Int     @id @default(autoincrement())
   name                   String?
-  email                  String?
+  email                  String@unique
   year                   Int?
   emergencyContact       Int?
   emergencyContactPerson String?
@@ -33,10 +33,10 @@ model faculty {
 }
 
 model inventoryitem {
-  id      Int    @id @default(autoincrement())
-  name    String @unique(map: "InventoryItems_name_key")
+  id       Int     @id @default(autoincrement())
+  name     String  @unique(map: "InventoryItems_name_key")
   itemType String?
-  SportId Int
+  SportId  Int
 }
 
 model sports {
@@ -49,7 +49,7 @@ model sports {
 }
 
 model status {
-  id       Int       @id @default(autoincrement())
+  id       Int     @id @default(autoincrement())
   isActive Boolean
   type     String
 }

@@ -9,7 +9,7 @@ export interface Student {
     year: number;
     // emergencyContact: number;
     // emergencyContactPerson: string;
-    // nationality: string;
+    nationality: string;
     weight: number;
     height: number;
     birthDate: number;
@@ -17,7 +17,7 @@ export interface Student {
     // acadYear: number;
     // statusId: number;
     // status: Status;
-    // sport: SportCategory;  // Optional as it's a one-to-one relationship
+    sport: SportCategory[];  
     // sportId?: number; // Optional as it's a foreign key referencing Sport
     // createdAt: Date;
     // updatedAt: Date;
@@ -81,3 +81,12 @@ export interface Student {
     // updatedAt: Date;
   }
   
+  export enum SportCategory {
+
+    Valorant = 'Valorant',
+    SwimmingMen = 'SwimmingMen',
+    SwimmingWomen = 'SwimmingWomen',
+    BasketballMen = 'BasketballMen',
+    BasketballWomen = 'BasketballWomen',
+   
+  }

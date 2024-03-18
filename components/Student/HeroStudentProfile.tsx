@@ -1,6 +1,6 @@
 'use client'
 import React, { useState, useEffect, useCallback } from 'react';
-import { Student } from '../src/types folder/types';
+import { Student } from '../../src/types folder/types';
 
 const HeroStudentProfile = () => {
   const [students, setStudents] = useState([]);

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Navbar from "../../../components/Navbar"; // Import Navbar component
 import "daisyui/dist/full.css";
-import EventAddForm from "../../../components/eventAddForm"; // Correct import with uppercase E
+import EventAddForm from "../../../components/Events/eventAddForm"; // Correct import with uppercase E
 
 const AddEvent = () => {
   return (

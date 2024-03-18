@@ -17,7 +17,7 @@ export interface Student {
     // acadYear: number;
     // statusId: number;
     // status: Status;
-    // sport: SportCategory;  // Optional as it's a one-to-one relationship
+    sport: SportCategory[];  // Optional as it's a one-to-one relationship
     // sportId?: number; // Optional as it's a foreign key referencing Sport
     // createdAt: Date;
     // updatedAt: Date;
@@ -84,10 +84,10 @@ export interface Student {
   
   export enum SportCategory {
 
-    Valorant,
-    SwimmingMen,
-    SwimmingWomen,
-    BasketballMen,
-    BasketballWomen,
-    map
+    Valorant = 'Valorant',
+    SwimmingMen = 'SwimmingMen',
+    SwimmingWomen = 'SwimmingWomen',
+    BasketballMen = 'BasketballMen',
+    BasketballWomen = 'BasketballWomen',
+   
   }

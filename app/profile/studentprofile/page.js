@@ -2,7 +2,7 @@
 import Link from "next/link";
 import Navbar from "../../../components/Navbar"; // Import Navbar component
 import "daisyui/dist/full.css";
-import HeroStudentProfile from '../../../components/HeroStudentProfile';
+import HeroStudentProfile from '../../../components/Student/HeroStudentProfile';
 
 const ProfilePage = () => {
   return (

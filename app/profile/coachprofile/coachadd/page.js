@@ -2,7 +2,7 @@
 import Link from "next/link";
 import Navbar from "../../../../components/Navbar"; // Import Navbar component
 import "daisyui/dist/full.css";
-import CoachAddForm from "../../../../components/CoachAddForm";
+import CoachAddForm from "../../../../components/Coach/CoachAddForm";
 
 
 const CoachAdd = () => {
